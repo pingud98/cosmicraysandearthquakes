@@ -1,0 +1,313 @@
+# NMDB neutron monitor station metadata
+# Sources: nmdb.eu station registry, Grieder (2001), Moraal et al. (2000)
+# Fields: lat (°N), lon (°E), alt_m (metres a.s.l.), Rc_GV (vertical geomagnetic rigidity cutoff, GV)
+# Entries marked "# approx" are estimated from published literature; verify at nmdb.eu/nest/help.php
+stations:
+  AATA:
+    name: "Almaty A"
+    country: KZ
+    lat: 43.25
+    lon: 76.95
+    alt_m: 1084
+    Rc_GV: 6.69
+  AATB:
+    name: "Almaty B"
+    country: KZ
+    lat: 43.25
+    lon: 76.95
+    alt_m: 1084
+    Rc_GV: 6.69
+  APTY:
+    name: "Apatity"
+    country: RU
+    lat: 67.57
+    lon: 33.40
+    alt_m: 177
+    Rc_GV: 0.57
+  ARNM:
+    name: "Arnhem"
+    country: NL
+    lat: 51.97
+    lon: 5.88
+    alt_m: 30
+    Rc_GV: 3.18
+  ATHN:
+    name: "Athens"
+    country: GR
+    lat: 37.97
+    lon: 23.72
+    alt_m: 260
+    Rc_GV: 8.53
+  BKSN:
+    name: "Baksan"
+    country: RU
+    lat: 43.28
+    lon: 42.69
+    alt_m: 1700
+    Rc_GV: 5.60
+  CALM:
+    name: "Calmar"
+    country: CA
+    lat: 53.26
+    lon: -113.82
+    alt_m: 766
+    Rc_GV: 1.09
+  DJON:
+    name: "Dourbes"          # approx — DJON may refer to Dourbes/Joncquois site
+    country: BE
+    lat: 50.09
+    lon: 4.60
+    alt_m: 225
+    Rc_GV: 3.18             # approx
+  DOMB:
+    name: "Dombås"
+    country: "NO"
+    lat: 62.07
+    lon: 9.11
+    alt_m: 659
+    Rc_GV: 1.15
+  DOMC:
+    name: "Dome C (Concordia)"
+    country: AQ
+    lat: -75.10
+    lon: 123.33
+    alt_m: 3233
+    Rc_GV: 0.01
+  DRBS:
+    name: "Dourbes"
+    country: BE
+    lat: 50.09
+    lon: 4.60
+    alt_m: 225
+    Rc_GV: 3.18
+  FSMT:
+    name: "Fort Smith"
+    country: CA
+    lat: 60.02
+    lon: -111.93
+    alt_m: 203
+    Rc_GV: 0.30
+  HRMS:
+    name: "Hermanus"
+    country: ZA
+    lat: -34.43
+    lon: 19.23
+    alt_m: 26
+    Rc_GV: 4.90
+  INVK:
+    name: "Inuvik"
+    country: CA
+    lat: 68.35
+    lon: -133.72
+    alt_m: 21
+    Rc_GV: 0.30
+  IRK2:
+    name: "Irkutsk 2"
+    country: RU
+    lat: 52.47
+    lon: 104.02
+    alt_m: 433
+    Rc_GV: 3.63
+  IRK3:
+    name: "Irkutsk 3"
+    country: RU
+    lat: 52.47
+    lon: 104.02
+    alt_m: 433
+    Rc_GV: 3.63
+  IRKT:
+    name: "Irkutsk"
+    country: RU
+    lat: 52.47
+    lon: 104.02
+    alt_m: 433
+    Rc_GV: 3.63
+  JBGO:
+    name: "Jang Bogo"        # Korean Antarctic Research Station
+    country: AQ
+    lat: -74.62
+    lon: 164.23
+    alt_m: 29
+    Rc_GV: 0.24
+  JUNG:
+    name: "Jungfraujoch"
+    country: CH
+    lat: 46.55
+    lon: 7.98
+    alt_m: 3475
+    Rc_GV: 4.48
+  JUNG1:
+    name: "Jungfraujoch 1"
+    country: CH
+    lat: 46.55
+    lon: 7.98
+    alt_m: 3475
+    Rc_GV: 4.48
+  KERG:
+    name: "Kerguelen"
+    country: FR
+    lat: -49.35
+    lon: 70.25
+    alt_m: 33
+    Rc_GV: 1.14
+  KIEL:
+    name: "Kiel"
+    country: DE
+    lat: 54.33
+    lon: 10.13
+    alt_m: 54
+    Rc_GV: 2.36
+  KIEL2:
+    name: "Kiel 2"
+    country: DE
+    lat: 54.33
+    lon: 10.13
+    alt_m: 54
+    Rc_GV: 2.36
+  LMKS:
+    name: "Lomnický Štít"
+    country: SK
+    lat: 49.20
+    lon: 20.22
+    alt_m: 2634
+    Rc_GV: 3.84
+  MCRL:
+    name: "Mt. Carmel"       # approx — identity uncertain
+    country: IL
+    lat: 32.82
+    lon: 34.98
+    alt_m: 450
+    Rc_GV: 10.18            # approx
+  MGDN:
+    name: "Magadan"
+    country: RU
+    lat: 60.12
+    lon: 151.02
+    alt_m: 220
+    Rc_GV: 2.10
+  MOSC:
+    name: "Moscow"
+    country: RU
+    lat: 55.47
+    lon: 37.32
+    alt_m: 200
+    Rc_GV: 2.43
+  MRNY:
+    name: "Mirny"
+    country: AQ
+    lat: -66.55
+    lon: 93.02
+    alt_m: 30
+    Rc_GV: 0.03
+  MXCO:
+    name: "Mexico City"
+    country: MX
+    lat: 19.33
+    lon: -99.18
+    alt_m: 2274
+    Rc_GV: 8.28
+  NAIN:
+    name: "Nain"
+    country: CA
+    lat: 56.54
+    lon: -61.69
+    alt_m: 46
+    Rc_GV: 1.00
+  NANM:
+    name: "Nansen (Ny-Ålesund)"   # approx
+    country: "NO"
+    lat: 78.92
+    lon: 11.95
+    alt_m: 75
+    Rc_GV: 0.30
+  NEWK:
+    name: "Newark"
+    country: US
+    lat: 39.68
+    lon: -75.75
+    alt_m: 50
+    Rc_GV: 2.40
+  NRLK:
+    name: "Norilsk"
+    country: RU
+    lat: 69.26
+    lon: 88.05
+    alt_m: 45
+    Rc_GV: 0.62
+  OULU:
+    name: "Oulu"
+    country: FI
+    lat: 65.05
+    lon: 25.47
+    alt_m: 15
+    Rc_GV: 0.80
+  PSNM:
+    name: "Princess Sirindhorn NM (Doi Inthanon)"
+    country: TH
+    lat: 18.59
+    lon: 98.49
+    alt_m: 2565
+    Rc_GV: 16.77
+  PTFM:
+    name: "Potchefstroom"
+    country: ZA
+    lat: -26.70
+    lon: 27.08
+    alt_m: 1351
+    Rc_GV: 7.06
+  PWNK:
+    name: "Peawanuck"         # approx
+    country: CA
+    lat: 54.97
+    lon: -85.43
+    alt_m: 54
+    Rc_GV: 0.30             # approx
+  ROME:
+    name: "Rome"
+    country: IT
+    lat: 41.86
+    lon: 12.47
+    alt_m: 60
+    Rc_GV: 6.27
+  SNAE:
+    name: "SANAE"
+    country: AQ
+    lat: -71.67
+    lon: -2.85
+    alt_m: 856
+    Rc_GV: 0.70
+  SOPB:
+    name: "South Pole B"
+    country: AQ
+    lat: -90.00
+    lon: 0.00
+    alt_m: 2820
+    Rc_GV: 0.10
+  SOPO:
+    name: "South Pole"
+    country: AQ
+    lat: -90.00
+    lon: 0.00
+    alt_m: 2820
+    Rc_GV: 0.10
+  TERA:
+    name: "Terra Nova Bay"    # approx — Italian Antarctic station
+    country: AQ
+    lat: -74.70
+    lon: 164.12
+    alt_m: 7
+    Rc_GV: 0.26
+  THUL:
+    name: "Thule"
+    country: GL
+    lat: 76.50
+    lon: -68.70
+    alt_m: 260
+    Rc_GV: 0.30
+  TSMB:
+    name: "Tsumeb"
+    country: NA
+    lat: -19.20
+    lon: 17.58
+    alt_m: 1240
+    Rc_GV: 9.20
