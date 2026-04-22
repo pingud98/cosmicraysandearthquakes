@@ -1,0 +1,358 @@
+{
+  "run_date": "2026-04-22",
+  "oos_start": "2020-01-01",
+  "oos_end": "2025-04-29",
+  "constrained_by": "NMDB",
+  "nmdb_reliable_end": "2025-04-29",
+  "usgs_reliable_end": "2026-03-08",
+  "sidc_reliable_end": "2026-03-23",
+  "good_stations_oos": [
+    "AATB",
+    "APTY",
+    "ATHN",
+    "BKSN",
+    "DOMB",
+    "DOMC",
+    "FSMT",
+    "INVK",
+    "IRK3",
+    "IRKT",
+    "JUNG",
+    "JUNG1",
+    "KERG",
+    "KIEL2",
+    "LMKS",
+    "MOSC",
+    "MRNY",
+    "MXCO",
+    "NAIN",
+    "NANM",
+    "NEWK",
+    "NRLK",
+    "OULU",
+    "PSNM",
+    "PWNK",
+    "ROME",
+    "SOPB",
+    "SOPO",
+    "TERA",
+    "THUL"
+  ],
+  "flagged_stations": [
+    "AATA",
+    "DJON",
+    "DRBS",
+    "FSMT",
+    "HRMS",
+    "INVK",
+    "IRK2",
+    "IRK3",
+    "KERG",
+    "KIEL2",
+    "LMKS",
+    "MOSC",
+    "MRNY",
+    "MXCO",
+    "NAIN",
+    "NANM",
+    "NEWK",
+    "NRLK",
+    "PTFM",
+    "PWNK",
+    "SNAE",
+    "SOPB",
+    "SOPO",
+    "TERA",
+    "THUL",
+    "TSMB"
+  ],
+  "nmdb_station_detail": {
+    "AATA": {
+      "status": "low_coverage",
+      "coverage_oos": 0.2691,
+      "last_date": "2022-09-14",
+      "gap_days": 1316
+    },
+    "AATB": {
+      "status": "ok",
+      "coverage_oos": 0.947,
+      "last_date": "2026-04-20",
+      "gap_days": 2
+    },
+    "APTY": {
+      "status": "ok",
+      "coverage_oos": 0.9978,
+      "last_date": "2026-04-21",
+      "gap_days": 1
+    },
+    "ARNM": {
+      "status": "no_data",
+      "coverage_oos": 0.0,
+      "last_date": null,
+      "gap_days": null
+    },
+    "ATHN": {
+      "status": "ok",
+      "coverage_oos": 0.8967,
+      "last_date": "2026-04-21",
+      "gap_days": 1
+    },
+    "BKSN": {
+      "status": "ok",
+      "coverage_oos": 0.9861,
+      "last_date": "2026-04-21",
+      "gap_days": 1
+    },
+    "CALM": {
+      "status": "no_data",
+      "coverage_oos": 0.0,
+      "last_date": null,
+      "gap_days": null
+    },
+    "DJON": {
+      "status": "low_coverage",
+      "coverage_oos": 0.0499,
+      "last_date": "2021-12-17",
+      "gap_days": 1587
+    },
+    "DOMB": {
+      "status": "ok",
+      "coverage_oos": 0.8481,
+      "last_date": "2026-04-20",
+      "gap_days": 2
+    },
+    "DOMC": {
+      "status": "ok",
+      "coverage_oos": 0.9688,
+      "last_date": "2026-04-20",
+      "gap_days": 2
+    },
+    "DRBS": {
+      "status": "low_coverage",
+      "coverage_oos": 0.0226,
+      "last_date": "2020-02-21",
+      "gap_days": 2252
+    },
+    "FSMT": {
+      "status": "ok",
+      "coverage_oos": 0.8746,
+      "last_date": "2025-07-26",
+      "gap_days": 270
+    },
+    "HRMS": {
+      "status": "low_coverage",
+      "coverage_oos": 0.0013,
+      "last_date": "2021-06-01",
+      "gap_days": 1786
+    },
+    "INVK": {
+      "status": "ok",
+      "coverage_oos": 0.8763,
+      "last_date": "2025-07-26",
+      "gap_days": 270
+    },
+    "IRK2": {
+      "status": "low_coverage",
+      "coverage_oos": 0.0751,
+      "last_date": "2020-07-27",
+      "gap_days": 2095
+    },
+    "IRK3": {
+      "status": "ok",
+      "coverage_oos": 0.5799,
+      "last_date": "2025-05-22",
+      "gap_days": 335
+    },
+    "IRKT": {
+      "status": "ok",
+      "coverage_oos": 0.9015,
+      "last_date": "2026-04-21",
+      "gap_days": 1
+    },
+    "JBGO": {
+      "status": "low_coverage",
+      "coverage_oos": 0.3481,
+      "last_date": "2026-04-20",
+      "gap_days": 2
+    },
+    "JUNG": {
+      "status": "ok",
+      "coverage_oos": 0.9978,
+      "last_date": "2026-04-21",
+      "gap_days": 1
+    },
+    "JUNG1": {
+      "status": "ok",
+      "coverage_oos": 0.9957,
+      "last_date": "2026-04-21",
+      "gap_days": 1
+    },
+    "KERG": {
+      "status": "ok",
+      "coverage_oos": 0.9709,
+      "last_date": "2026-02-28",
+      "gap_days": 53
+    },
+    "KIEL": {
+      "status": "no_data",
+      "coverage_oos": 0.0,
+      "last_date": null,
+      "gap_days": null
+    },
+    "KIEL2": {
+      "status": "ok",
+      "coverage_oos": 0.5929,
+      "last_date": "2023-10-03",
+      "gap_days": 932
+    },
+    "LMKS": {
+      "status": "ok",
+      "coverage_oos": 0.5586,
+      "last_date": "2023-07-10",
+      "gap_days": 1017
+    },
+    "MCRL": {
+      "status": "low_coverage",
+      "coverage_oos": 0.0,
+      "last_date": null,
+      "gap_days": null
+    },
+    "MGDN": {
+      "status": "no_data",
+      "coverage_oos": 0.0,
+      "last_date": null,
+      "gap_days": null
+    },
+    "MOSC": {
+      "status": "ok",
+      "coverage_oos": 0.8286,
+      "last_date": "2025-03-23",
+      "gap_days": 395
+    },
+    "MRNY": {
+      "status": "ok",
+      "coverage_oos": 0.776,
+      "last_date": "2025-02-28",
+      "gap_days": 418
+    },
+    "MXCO": {
+      "status": "ok",
+      "coverage_oos": 0.8819,
+      "last_date": "2025-10-13",
+      "gap_days": 191
+    },
+    "NAIN": {
+      "status": "ok",
+      "coverage_oos": 0.8516,
+      "last_date": "2025-05-29",
+      "gap_days": 328
+    },
+    "NANM": {
+      "status": "ok",
+      "coverage_oos": 0.5716,
+      "last_date": "2024-11-14",
+      "gap_days": 524
+    },
+    "NEWK": {
+      "status": "ok",
+      "coverage_oos": 0.8763,
+      "last_date": "2025-07-26",
+      "gap_days": 270
+    },
+    "NRLK": {
+      "status": "ok",
+      "coverage_oos": 0.6801,
+      "last_date": "2025-04-29",
+      "gap_days": 358
+    },
+    "OULU": {
+      "status": "ok",
+      "coverage_oos": 0.9983,
+      "last_date": "2026-04-21",
+      "gap_days": 1
+    },
+    "PSNM": {
+      "status": "ok",
+      "coverage_oos": 0.9514,
+      "last_date": "2026-04-19",
+      "gap_days": 3
+    },
+    "PTFM": {
+      "status": "low_coverage",
+      "coverage_oos": 0.0009,
+      "last_date": "2025-01-02",
+      "gap_days": 475
+    },
+    "PWNK": {
+      "status": "ok",
+      "coverage_oos": 0.8763,
+      "last_date": "2025-07-26",
+      "gap_days": 270
+    },
+    "ROME": {
+      "status": "ok",
+      "coverage_oos": 0.8485,
+      "last_date": "2026-04-21",
+      "gap_days": 1
+    },
+    "SNAE": {
+      "status": "low_coverage",
+      "coverage_oos": 0.0009,
+      "last_date": "2025-01-02",
+      "gap_days": 475
+    },
+    "SOPB": {
+      "status": "ok",
+      "coverage_oos": 0.8767,
+      "last_date": "2025-07-25",
+      "gap_days": 271
+    },
+    "SOPO": {
+      "status": "ok",
+      "coverage_oos": 0.8767,
+      "last_date": "2025-07-25",
+      "gap_days": 271
+    },
+    "TERA": {
+      "status": "ok",
+      "coverage_oos": 0.9466,
+      "last_date": "2026-02-28",
+      "gap_days": 53
+    },
+    "THUL": {
+      "status": "ok",
+      "coverage_oos": 0.8763,
+      "last_date": "2025-07-26",
+      "gap_days": 270
+    },
+    "TSMB": {
+      "status": "low_coverage",
+      "coverage_oos": 0.0004,
+      "last_date": "2020-05-01",
+      "gap_days": 2182
+    }
+  },
+  "usgs_detail": {
+    "status": "ok",
+    "years_present": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "total_events": 47860,
+    "reliable_end": "2026-03-08",
+    "note": "Catalogue stability: complete within ~30 days; using today-45 days"
+  },
+  "sidc_detail": {
+    "status": "ok",
+    "last_date": "2026-03-31",
+    "definitive_end": "2026-03-31",
+    "reliable_end": "2026-03-23",
+    "n_records": 76061,
+    "note": "Using provisional values (prov=1); definitive lag ~6 months"
+  }
+}

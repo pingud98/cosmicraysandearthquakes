@@ -1,0 +1,38 @@
+OUT-OF-SAMPLE DATA AVAILABILITY REPORT
+Run date: 2026-04-22
+OOS window: 2020-01-01 → 2025-04-29  (constrained by NMDB)
+
+NMDB stations with ≥50% OOS coverage: 30
+  AATB     coverage= 94.7%  last=2026-04-20
+  APTY     coverage= 99.8%  last=2026-04-21
+  ATHN     coverage= 89.7%  last=2026-04-21
+  BKSN     coverage= 98.6%  last=2026-04-21
+  DOMB     coverage= 84.8%  last=2026-04-20
+  DOMC     coverage= 96.9%  last=2026-04-20
+  FSMT     coverage= 87.5%  last=2025-07-26
+  INVK     coverage= 87.6%  last=2025-07-26
+  IRK3     coverage= 58.0%  last=2025-05-22
+  IRKT     coverage= 90.1%  last=2026-04-21
+  JUNG     coverage= 99.8%  last=2026-04-21
+  JUNG1    coverage= 99.6%  last=2026-04-21
+  KERG     coverage= 97.1%  last=2026-02-28
+  KIEL2    coverage= 59.3%  last=2023-10-03
+  LMKS     coverage= 55.9%  last=2023-07-10
+  MOSC     coverage= 82.9%  last=2025-03-23
+  MRNY     coverage= 77.6%  last=2025-02-28
+  MXCO     coverage= 88.2%  last=2025-10-13
+  NAIN     coverage= 85.2%  last=2025-05-29
+  NANM     coverage= 57.2%  last=2024-11-14
+  NEWK     coverage= 87.6%  last=2025-07-26
+  NRLK     coverage= 68.0%  last=2025-04-29
+  OULU     coverage= 99.8%  last=2026-04-21
+  PSNM     coverage= 95.1%  last=2026-04-19
+  PWNK     coverage= 87.6%  last=2025-07-26
+  ROME     coverage= 84.9%  last=2026-04-21
+  SOPB     coverage= 87.7%  last=2025-07-25
+  SOPO     coverage= 87.7%  last=2025-07-25
+  TERA     coverage= 94.7%  last=2026-02-28
+  THUL     coverage= 87.6%  last=2025-07-26
+
+USGS: years available = [2020, 2021, 2022, 2023, 2024, 2025, 2026]  events = 47,860
+SIDC: last_date = 2026-03-31  (provisional note: Using provisional values (prov=1); definitive lag ~6 months)
