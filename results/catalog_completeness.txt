@@ -1,0 +1,16 @@
+USGS Earthquake Catalogue — Completeness Summary
+==================================================
+Total events loaded: 14,735
+Date range: 2018-01-01 — 2019-12-30
+Gutenberg-Richter b-value (M≥4.5): 1.410
+
+Estimated catalogue completeness onset (CV < 15% over 5-year window):
+  M ≥ 4.0: no clear stabilisation
+  M ≥ 4.5: no clear stabilisation
+  M ≥ 5.0: no clear stabilisation
+  M ≥ 5.5: no clear stabilisation
+  M ≥ 6.0: no clear stabilisation
+  M ≥ 7.0: no clear stabilisation
+
+NOTE: Use M≥4.5 from ~1976 onwards for global cross-correlation analysis.
+Earlier data should be treated with caution — counts are systematically low.

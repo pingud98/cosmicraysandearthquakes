@@ -1,0 +1,12 @@
+GPU vs CPU Surrogate Benchmark
+==================================================
+N timesteps:   16,000
+N surrogates:  10,000
+IAAFT iter:    100
+CPU n_jobs:    -1
+GPU device:    Tesla M40 (12.0 GB)
+
+Method      CPU (s)    GPU (s)   Speedup   Equiv
+------------------------------------------------
+phase          61.7       20.9      2.9x    PASS
+iaaft         227.8      175.6      1.3x    PASS

@@ -1,0 +1,61 @@
+{
+  "generated": "2026-04-21T10:31:37Z",
+  "study_start": "1976-01-01",
+  "study_end": "2019-12-31",
+  "bin_days": 5,
+  "n_surrogates": 10000,
+  "results": [
+    {
+      "label": "Raw",
+      "n": 3215,
+      "n_eff": 1169.0,
+      "r_at_15d": 0.3099,
+      "sigma_15_naive": 18.01,
+      "sigma_15_breth": 10.85,
+      "peak_r": 0.4691,
+      "peak_lag_days": -525,
+      "sigma_pk_naive": 28.26,
+      "p_global_iaaft": 1.0,
+      "sigma_iaaft": 0.0
+    },
+    {
+      "label": "HP filter",
+      "n": 3215,
+      "n_eff": 3027.3,
+      "r_at_15d": 0.0411,
+      "sigma_15_naive": 2.33,
+      "sigma_15_breth": 2.26,
+      "peak_r": 0.3131,
+      "peak_lag_days": -525,
+      "sigma_pk_naive": 18.21,
+      "p_global_iaaft": 0.0,
+      "sigma_iaaft": 3.89
+    },
+    {
+      "label": "STL",
+      "n": 3215,
+      "n_eff": 1879.8,
+      "r_at_15d": 0.1098,
+      "sigma_15_naive": 6.24,
+      "sigma_15_breth": 4.77,
+      "peak_r": 0.1554,
+      "peak_lag_days": -125,
+      "sigma_pk_naive": 8.86,
+      "p_global_iaaft": 0.0,
+      "sigma_iaaft": 3.89
+    },
+    {
+      "label": "Sunspot regression",
+      "n": 3215,
+      "n_eff": 1849.6,
+      "r_at_15d": 0.157,
+      "sigma_15_naive": 8.96,
+      "sigma_15_breth": 6.79,
+      "peak_r": 0.2657,
+      "peak_lag_days": -525,
+      "sigma_pk_naive": 15.34,
+      "p_global_iaaft": 0.0,
+      "sigma_iaaft": 3.89
+    }
+  ]
+}

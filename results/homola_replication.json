@@ -1,0 +1,34 @@
+{
+  "script": "scripts/02_homola_replication.py",
+  "git_sha": "unknown",
+  "seed": 42,
+  "timestamp_utc": "2026-04-21T09:02:19.401598+00:00",
+  "study_window": [
+    "1976-01-01",
+    "2019-12-31"
+  ],
+  "bin_days": 5,
+  "lag_range_days": [
+    -1000,
+    1000
+  ],
+  "min_magnitude": 4.0,
+  "nmdb_coverage_threshold": 0.6,
+  "min_stations_requested": 3,
+  "min_stations_effective": 3,
+  "n_stations_used": 44,
+  "n_cr_bins_total": 3215,
+  "n_cr_bins_valid": 3215,
+  "cr_data_coverage_pct": 100.03,
+  "peak_lag_days": -525,
+  "peak_lag_bins": -105,
+  "peak_r": 0.469101,
+  "naive_p_value": 5.631233e-170,
+  "naive_sigma": 27.791,
+  "n_pairs_at_peak": 3110,
+  "r_at_tau_15d": 0.309878,
+  "p_at_tau_15d": 1.93927e-72,
+  "sigma_at_tau_15d": 18.0,
+  "n_lags_scanned": 401,
+  "note_significance": "Naive p from Pearson t-test treating 5-day bins as i.i.d. Not corrected for: (1) temporal autocorrelation, (2) shared solar-cycle trend, (3) scan over multiple lags. Expected to be grossly over-significant \u2014 corrected tests in phase 2."
+}

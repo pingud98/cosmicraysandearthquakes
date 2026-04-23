@@ -1,0 +1,47 @@
+{
+  "script": "scripts/03_stress_test.py",
+  "git_sha": "unknown",
+  "seed": 42,
+  "timestamp_utc": "2026-04-21T10:03:23.369813+00:00",
+  "study_window": [
+    "1976-01-01",
+    "2019-12-31"
+  ],
+  "bin_days": 5,
+  "lag_range_days": [
+    -1000,
+    1000
+  ],
+  "min_magnitude": 4.0,
+  "n_bins": 3215,
+  "n_stations": 44,
+  "n_events": 409763,
+  "r1_cr_index": 0.6701,
+  "r1_seismic": 0.69687,
+  "n_eff_bretherton": 1169.0,
+  "tau_15d": {
+    "r": 0.309878,
+    "naive_p": 1.6659911463430199e-72,
+    "naive_sigma": 18.00866469588119,
+    "bretherton_p": 1.9536877842478326e-27,
+    "bretherton_sigma": 10.851878248025837,
+    "phase_surr_p": 0.06300000101327896,
+    "phase_surr_sigma": 1.8591914873206736,
+    "iaaft_surr_p": 1.0,
+    "iaaft_surr_sigma": 0.0
+  },
+  "peak_lag": {
+    "r": 0.469101,
+    "lag_days": -525,
+    "naive_p": 1.1932567507933964e-175,
+    "naive_sigma": 28.256232973744382,
+    "bretherton_p": 5.178335317026674e-65,
+    "bretherton_sigma": 17.027010022743948,
+    "phase_surr_p_global": 0.0,
+    "phase_surr_sigma_global": 3.890591886413094,
+    "iaaft_surr_p_global": 1.0,
+    "iaaft_surr_sigma_global": 0.0
+  },
+  "n_surrogates": 10000,
+  "method": "both"
+}
