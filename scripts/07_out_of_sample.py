@@ -338,12 +338,15 @@ def load_cr_and_seismic(
 
     # --- Seismic metric ---
     events = load_usgs(start_year, end_year, usgs_dir)
-    events = events.loc[study_start:study_end]
-    events = events[events["mag"] >= min_mag]
-    daily_mw = events["mag"].resample("1D").sum()
-    daily_mw = daily_mw.reindex(
-        pd.date_range(study_start, study_end, freq="D"), fill_value=0.0
-    )
+    full_day_index = pd.date_range(study_start, study_end, freq="D")
+    if events.empty or not isinstance(events.index, pd.DatetimeIndex):
+        logger.warning("No USGS events loaded for %s–%s; seismic series will be zeros", study_start, study_end)
+        daily_mw = pd.Series(0.0, index=full_day_index)
+    else:
+        events = events.loc[study_start:study_end]
+        events = events[events["mag"] >= min_mag]
+        daily_mw = events["mag"].resample("1D").sum()
+        daily_mw = daily_mw.reindex(full_day_index, fill_value=0.0)
     seismic_bin = _bin_series(daily_mw, study_start, bin_days, agg="sum").fillna(0.0)
     seismic_bin = seismic_bin.reindex(ref_index, fill_value=0.0)
 
