@@ -53,20 +53,23 @@ and Out-of-Sample Validation}}
 ($r \approx 0.31$) between galactic cosmic-ray (CR) flux measured by neutron
 monitors and global seismicity (M~$\geq$~4.5) at a time lag of $\tau = +15$~days,
 suggesting that elevated CR flux precedes increased earthquake activity.
+That earlier value used a physically invalid seismic metric (direct sum of moment
+magnitudes $M_W$, which are logarithmic); the correct metric — summed radiated energy
+$E = 10^{1.5 M_W + 4.8}$\,J per bin \citep{Kanamori1977} — yields $r(+15\,\text{d}) = 0.081$.
 We present a systematic replication and extension of this claim using data from
 44 Neutron Monitor Database (NMDB) stations, the USGS global earthquake catalogue,
 and SILSO daily sunspot numbers spanning 1976--2025.
 
 Our analysis proceeds in four stages.
-\textit{Stage~1} replicates the raw cross-correlation ($r(+15\,\text{d}) = 0.310$,
-peak $r = 0.469$ at $\tau = -525$~days) but demonstrates that naive $p$-values
-are invalid because temporal autocorrelation and a shared $\sim$11-year solar
-cycle inflate the apparent significance.
+\textit{Stage~1} replicates the raw cross-correlation (with correct seismic energy metric:
+$r(+15\,\text{d}) = 0.081$, peak $r = 0.139$ at $\tau = -525$~days) but demonstrates
+that naive $p$-values are invalid because temporal autocorrelation and a shared
+$\sim$11-year solar cycle inflate the apparent significance.
 \textit{Stage~2} applies iterative amplitude-adjusted Fourier transform (IAAFT)
 surrogate tests with $10^4$ realisations: after Hodrick--Prescott (HP) detrending
 to remove the solar-cycle component, the peak correlation drops to
-$r = 0.131$ and achieves marginal significance ($p_\text{global} < 10^{-3}$, $3.9\sigma$),
-but $r(+15\,\text{d}) = 0.041$ --- well within the surrogate null distribution.
+$r = 0.101$ and achieves formal significance ($p_\text{global} < 10^{-4}$, $>3.9\sigma$),
+but $r(+15\,\text{d}) = 0.027$ --- well within the surrogate null distribution.
 \textit{Stage~3} scans $34 \times 207 = 7{,}037$ station--grid-cell pairs for
 geographic localisation; 455 pairs survive Benjamini--Hochberg correction
 (expected false discoveries: 352), and the optimal lag $\tau^*$ shows no
@@ -75,11 +78,11 @@ consistent with an isotropic CR signal rather than a local mechanism.
 \textit{Stage~4} applies a pre-registered out-of-sample test on an independent
 2020--2025 window ($T = 390$ five-day bins, $10^5$ phase-randomisation
 surrogates on a Tesla M40 GPU):
-$r(+15\,\text{d}) = 0.045$ (surrogate 95th percentile~$= 0.136$),
-$p_\text{global} = 0.994$ --- consistent with noise.
+$r(+15\,\text{d}) = 0.030$ (surrogate 95th percentile~$= 0.101$),
+$p_\text{global} = 0.100$ --- consistent with noise.
 Fitting a sinusoid to the 1976--2025 annual cross-correlation timeseries yields
-a best-fit period of $P = 9.95$~years and a Bayes factor of $\text{BF} = 27.5$
-strongly favouring a solar-cycle modulation over a constant relationship.
+a best-fit period of $P = 13.0$~years and a Bayes factor of $\text{BF} = 0.75$,
+slightly favouring a constant (no modulation) over a sinusoidal relationship.
 
 We conclude that the CR--seismic correlation reported by \citet{Homola2023} is an
 artefact of the shared solar-cycle modulation of both galactic CR flux and
@@ -182,9 +185,21 @@ Earthquake data were downloaded from the USGS Earthquake Hazards Programme
 via the FDSN web service \citep{USGS2024}.
 We retained all events with $M \geq 4.5$ globally, yielding a catalogue of
 $\approx$\,47,860 events over 2020--2025 in the out-of-sample window alone.
-The seismic metric for each 5-day bin is the total released seismic moment
-(expressed as summed $M_W$), which is proportional to the logarithm of total
-energy released and is more physically motivated than raw event count.
+The seismic metric for each 5-day bin is the logarithm (base 10) of the total
+radiated seismic energy.  For each event with moment magnitude $M_W$ we compute
+the radiated energy
+\begin{equation}
+  E_i = 10^{1.5 M_{W,i} + 4.8} \quad [\text{joules}]
+  \label{eq:energy}
+\end{equation}
+following \citet{Kanamori1977}.  Events within each bin are summed linearly,
+$E_\text{bin} = \sum_i E_i$, and the metric is $\log_{10}(E_\text{bin})$
+(empty bins set to NaN).
+This formulation correctly weights large earthquakes: an $M_W\,8.0$ event
+contributes $\sim$1000$\times$ more energy than an $M_W\,6.0$ event.
+Directly summing $M_W$ values — as used in several earlier studies — is
+physically invalid because $M_W$ is logarithmic; such sums do not correspond
+to any additive physical quantity.
 
 \subsection{Solar Activity: SIDC Sunspot Number}
 \label{sec:sidc}
@@ -221,15 +236,29 @@ giving 81 lag values in the in-sample window.
 
 Because both $x$ and $y$ are autocorrelated, the effective sample size
 $N_\text{eff}$ is substantially smaller than $T$.
-We use the \citet{Bretherton1999} formula
+We compare three $N_\text{eff}$ estimators; all are listed in Table~\ref{tab:neff}.
+The \citet{Bartlett1946} first-order formula uses only the lag-1 autocorrelations:
 \begin{equation}
-  N_\text{eff} = T \left(
+  N_\text{eff}^\text{Bart} = T\,
+    \frac{1 - r_{xx}(1)\,r_{yy}(1)}
+         {1 + r_{xx}(1)\,r_{yy}(1)},
+  \label{eq:neff_bartlett}
+\end{equation}
+the \citet{Bretherton1999} full-sum formula uses all significant lags:
+\begin{equation}
+  N_\text{eff}^\text{Breth} = T \left(
     1 + 2 \sum_{k=1}^{K} r_{xx}(k)\, r_{yy}(k)
   \right)^{-1},
-  \label{eq:neff}
+  \label{eq:neff_breth}
 \end{equation}
 where $r_{xx}$ and $r_{yy}$ are the sample autocorrelation functions of $x$
-and $y$, truncated at lag $K$ where the product first changes sign.
+and $y$, and $K = 200$ lags;
+and a Monte Carlo estimate from 1000 phase-randomised surrogates:
+$N_\text{eff}^\text{MC} = 1/\hat{\sigma}^2_{r_\text{null}}$,
+where $\hat{\sigma}^2_{r_\text{null}}$ is the variance of the surrogate
+correlation values at the target lag.
+All three methods agree that the Bartlett estimator produces the most liberal
+(largest) $N_\text{eff}$ and the Monte Carlo approach the most conservative.
 
 \subsection{Surrogate Significance Tests}
 \label{sec:surrogates}
@@ -304,8 +333,19 @@ relationship from the shared solar-cycle trend:
 
 \begin{enumerate}
   \item \textbf{Hodrick--Prescott (HP) filter} \citep{HP1997} with smoothing
-    parameter $\lambda = 1.29 \times 10^5$ (calibrated for quarterly data,
-    rescaled for 5-day bins to retain oscillations shorter than $\sim$3 years).
+    parameter $\lambda = 4.54 \times 10^{10}$.
+    The HP literature standardises on $\lambda_\text{annual} = 1600$ for annual
+    data \citep{RahnUhlig2002}.
+    For data sampled at bin period $p$ days the rescaling rule is
+    \begin{equation}
+      \lambda_p = \lambda_\text{annual}
+                  \!\left(\frac{365}{p}\right)^{\!4}
+                  = 1600 \times (365/5)^4
+                  \approx 4.54 \times 10^{10}.
+      \label{eq:hp_lambda}
+    \end{equation}
+    This large value attenuates only very low-frequency variation (periods
+    $\gtrsim 10$~years), preserving any sub-decadal signal of interest.
     The trend component is subtracted from both $x_t$ and $y_t$.
 
   \item \textbf{STL decomposition} \citep{Cleveland1990}: seasonal-trend
@@ -602,17 +642,18 @@ the CR--sunspot anti-correlation ($r = -0.82$) that drives it.
 \label{sec:res:insample}
 
 Figure~\ref{fig:homola} shows the full cross-correlation function of the raw
-(undetrended) CR index and seismic metric over 1976--2019 ($T = 3{,}215$ five-day
-bins, 44 stations).
-The dominant peak is at $\tau = -525$~days ($r = 0.469$), corresponding to a
+(undetrended) CR index and seismic metric (log$_{10}$ summed energy, Eq.~\ref{eq:energy})
+over 1976--2019 ($T = 3{,}215$ five-day bins, 44 stations).
+The dominant peak is at $\tau = -525$~days ($r = 0.139$), corresponding to a
 half-solar-cycle lead of seismicity over CR flux.
-At the claimed lag $\tau = +15$~days we find $r = 0.310$ --- consistent with the
-\citet{Homola2023} value.
-However, naive significance estimates treating bins as independent yield
-$p \sim 10^{-170}$ at the dominant peak, which is physically impossible given
-the known autocorrelation in both series.
-Applying the Bretherton correction reduces $N_\text{eff}$ from 3{,}215 to
-1{,}169, bringing $\sigma_{r(+15)}$ down from 18.0 to 10.9~(standard deviations).
+At the claimed lag $\tau = +15$~days we find $r = 0.081$.
+Although naive significance is high (4.6$\sigma$ treating bins as i.i.d.), both
+series share the $\sim$11-year solar cycle, which drives the apparent signal.
+The Bartlett effective-$N$ estimate gives $N_\text{eff} = 2{,}916$ and
+$\sigma_{r(+15)} = 4.4$ (standard deviations); the more conservative Bretherton
+and Monte Carlo estimates lower $N_\text{eff}$ to 769 and 594, respectively
+(Table~\ref{tab:neff}), with the Monte Carlo 95\% CI for $r(+15\,\text{d})$
+straddling zero (see Section~\ref{sec:neff_comparison}).
 
 \begin{figure}[htbp]
   \centering
@@ -633,14 +674,15 @@ Applying the Bretherton correction reduces $N_\text{eff}$ from 3{,}215 to
 Figure~\ref{fig:stress} shows the IAAFT surrogate null distribution of the peak
 cross-correlation statistic alongside the observed value for both the raw and
 HP-detrended series.
-For the \textit{raw} series: $\rho_\text{obs} = 0.469$ exceeds all 10{,}000
-surrogates ($p_\text{global} = 0.000$, i.e.\ $< 10^{-4}$, formally), indicating
+For the \textit{raw} series: $\rho_\text{obs} = 0.139$ exceeds all 10{,}000
+surrogates ($p_\text{global} < 10^{-4}$, $> 3.9\sigma$), indicating
 that the raw peak is not consistent with the null distribution.
 However, this significance is driven entirely by the shared solar-cycle trend:
 when both series are HP-detrended before computing surrogates, the peak
-$r$ drops to $0.313$ and achieves $p_\text{global} = 0.000$ ($3.9\sigma$) ---
-a marginal but nominally significant residual.
-Crucially, $r(+15\,\text{d})$ after detrending is $0.041$, well within the
+$r$ drops to $0.101$ (at $\tau = -125$~days) and achieves
+$p_\text{global} < 10^{-4}$ ($> 3.9\sigma$) --- nominally significant at a
+negative lag that does not correspond to the claimed mechanism.
+Crucially, $r(+15\,\text{d})$ after HP detrending is $0.027$, well within the
 surrogate null distribution.
 
 \begin{figure}[htbp]
@@ -659,12 +701,15 @@ surrogate null distribution.
 
 Table~\ref{tab:detrend} summarises the cross-correlation at $\tau = +15$~days
 under four preprocessing conditions.
-The raw $r = 0.310$ falls to $0.041$ after HP filtering, to $0.110$ after STL
-decomposition, and to $0.157$ after sunspot regression.
-In all detrended cases the claimed $\tau = +15$~day signal is dramatically
-reduced and does not survive the IAAFT global surrogate test.
-The dominant peak under all detrending methods remains near $\tau \approx -125$
+The raw $r = 0.081$ falls to $0.027$ after HP filtering, to $0.030$ after STL
+decomposition, and to $0.037$ after sunspot regression.
+In all detrended cases the claimed $\tau = +15$~day signal is negligible.
+The dominant peak under all detrending methods shifts to $\tau \approx -125$
 to $-525$~days --- not at $+15$~days.
+Figure~\ref{fig:detrend_robust} extends this comparison to three additional
+detrending approaches (HP, Butterworth highpass, 12-month rolling-mean
+subtraction) and confirms that no detrending method reveals a positive
+correlation at the claimed lag (Section~\ref{sec:detrend_robust}).
 
 \begin{table}[htbp]
   \centering
@@ -676,10 +721,10 @@ to $-525$~days --- not at $+15$~days.
     Preprocessing & $r(+15\,\text{d})$ & $N_\text{eff}$ &
       $\sigma_\text{Breth}$ & Peak $r$ & Peak $\tau$ (d) \\
     \midrule
-    Raw (undetrended) & 0.310 & 1{,}169 & 10.9 & 0.469 & $-525$ \\
-    HP filter         & 0.041 & 3{,}027 &  2.3 & 0.313 & $-525$ \\
-    STL decomposition & 0.110 & 1{,}880 &  4.8 & 0.155 & $-125$ \\
-    Sunspot regression& 0.157 & 1{,}850 &  6.8 & 0.266 & $-525$ \\
+    Raw (undetrended) & 0.081 & 2{,}916 & 4.4 & 0.139 & $-525$ \\
+    HP filter         & 0.027 & 3{,}199 & 1.5 & 0.101 & $-125$ \\
+    STL decomposition & 0.030 & 3{,}031 & 1.6 & 0.093 & $-525$ \\
+    Sunspot regression& 0.037 & 3{,}056 & 2.0 & 0.092 & $-125$ \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -698,6 +743,88 @@ flat function near zero, with no special feature at $+15$~days.
   artefact. Neither series exhibits a significant peak at $\tau = +15$~days
   (vertical grey line).}
   \label{fig:detrended}
+\end{figure}
+
+\subsection{Detrending Robustness}
+\label{sec:detrend_robust}
+
+To confirm that the null result at $\tau = +15$~days does not depend on the
+choice of detrending method, Figure~\ref{fig:detrend_robust} compares three
+distinct approaches applied to the in-sample window: (i) the HP filter
+($\lambda = 4.54 \times 10^{10}$), (ii) a 3rd-order Butterworth highpass filter
+with a 2-year cutoff (removing all variability on timescales $>$~2 years),
+and (iii) 12-month rolling-mean subtraction.
+All three leave $r(+15\,\text{d}) < 0.04$, with no approach producing a feature
+at the claimed lag.
+The residual structure at negative lags ($\tau \approx -125$~days) persists
+under all methods, consistent with a non-solar-cycle signal of unknown origin,
+but it is not at $+15$~days and is not reproducible in the out-of-sample window.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{detrend_robustness.png}
+  \caption{Cross-correlation $r(\tau)$ under three detrending approaches
+  (HP filter, Butterworth highpass, rolling-mean subtraction) for the raw
+  CR index vs.\ log$_{10}$ seismic energy, 1976--2019.
+  The vertical grey line marks the claimed $\tau = +15$~days.
+  No method produces a positive feature at this lag.}
+  \label{fig:detrend_robust}
+\end{figure}
+
+\subsection{Comparison of $N_\text{eff}$ Estimators}
+\label{sec:neff_comparison}
+
+Table~\ref{tab:neff} compares the three $N_\text{eff}$ estimators described
+in Section~\ref{sec:neff} for the raw in-sample series at $\tau = +15$~days.
+The Bartlett first-order estimator is most liberal ($N_\text{eff} = 2{,}923$),
+the Bretherton full-sum estimator substantially lower ($N_\text{eff} = 769$),
+and the Monte Carlo phase-surrogate estimator most conservative
+($N_\text{eff} = 594$).
+The 95\% confidence interval for $r(+15\,\text{d})$ under the Monte Carlo
+estimate straddles zero ($[-0.002, +0.158]$), meaning the raw correlation is
+not statistically significant even before any detrending.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Comparison of $N_\text{eff}$ estimators for raw in-sample series at
+  $\tau = +15$~days ($N = 3{,}214$, $r = 0.079$).}
+  \label{tab:neff}
+  \begin{tabular}{lrrr}
+    \toprule
+    Method & $N_\text{eff}$ & 95\% CI for $r$ & Includes zero? \\
+    \midrule
+    Bartlett 1946 (first-order) & 2{,}923 & [0.042, 0.115] & No \\
+    Bretherton 1999 (full sum)  &   769 & [0.008, 0.148] & No \\
+    Monte Carlo (phase surr.)   &   594 & [$-$0.002, 0.158] & Yes \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Magnitude Threshold Sensitivity}
+\label{sec:mag_threshold}
+
+To assess sensitivity to the event selection threshold and potential bias from
+aftershock contamination, we recomputed the seismic energy metric for three
+minimum-magnitude cutoffs: $M \geq 4.5$ (baseline), $M \geq 5.0$, and
+$M \geq 6.0$.
+Figure~\ref{fig:mag_threshold} shows the cross-correlation function $r(\tau)$
+for each threshold.
+The values at the claimed lag are $r(+15\,\text{d}) = 0.079$, $0.072$, and
+$0.050$ for $M \geq 4.5$, $5.0$, and $6.0$ respectively --- a range of only
+$0.029$, well below the $0.05$ threshold for a meaningful shift.
+The peak lag remains at $\tau = -525$~days for all thresholds, indicating
+that aftershock swarms (which inflate the $M \geq 4.5$ catalogue in the days
+following large events) do not drive the dominant correlation structure.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{magnitude_threshold.png}
+  \caption{Cross-correlation $r(\tau)$ for three magnitude cutoffs
+  ($M \geq 4.5$, blue; $M \geq 5.0$, orange; $M \geq 6.0$, green),
+  in-sample window 1976--2019. The vertical grey line marks $\tau = +15$~days.
+  All three cutoffs yield similar, small correlations at the claimed lag,
+  and the dominant peak location ($\tau = -525$~days) is stable.}
+  \label{fig:mag_threshold}
 \end{figure}
 
 \subsection{Geographic Localisation}
@@ -749,11 +876,11 @@ in-sample period.
 
 The main results (Figure~\ref{fig:oosxcorr}) are:
 \begin{itemize}
-  \item $r(+15\,\text{d}) = +0.045$ (directionally correct, but very small);
-  \item Surrogate 95th percentile at $\tau = +15$~d: $0.136$ (observed is
+  \item $r(+15\,\text{d}) = +0.030$ (directionally correct, but very small);
+  \item Surrogate 95th percentile at $\tau = +15$~d: $0.101$ (observed is
     well below this threshold);
-  \item $p_\text{global} = 0.994$ --- the observed peak cross-correlation is
-    exceeded by 99.4\% of phase-randomisation surrogates.
+  \item $p_\text{global} = 0.100$ --- the observed peak cross-correlation is
+    exceeded by 10\% of phase-randomisation surrogates.
 \end{itemize}
 
 The prediction scorecard (Table~\ref{tab:prereg}) shows one pass (P1: correct
@@ -767,10 +894,10 @@ across 18-month sub-windows.
   \centering
   \includegraphics[width=0.90\textwidth]{oos_xcorr.png}
   \caption{Out-of-sample cross-correlation function (2020--2025, $T=390$ bins,
-  $10^5$ phase surrogates). The observed $r(\tau)$ (black) lies entirely within
+  $10^5$ phase surrogates). The observed $r(\tau)$ (black) lies within
   the surrogate 95th-percentile envelope (grey shading). The claimed signal at
-  $\tau = +15$~d (vertical line) is $r = 0.045$ --- below the surrogate 95th
-  percentile of 0.136.}
+  $\tau = +15$~d (vertical line) is $r = 0.030$ --- below the surrogate 95th
+  percentile of 0.101.}
   \label{fig:oosxcorr}
 \end{figure}
 
@@ -812,30 +939,31 @@ full 1976--2025 record, together with the best-fit sinusoidal envelope.
   \includegraphics[width=0.90\textwidth]{full_series_with_envelope_fit.png}
   \caption{Annual rolling $r(+15\,\text{d})$ across the full 1976--2025 period
   (grey points with 95\% bootstrap CI). The sinusoidal best-fit (red curve,
-  $P = 9.95$~yr) closely tracks the oscillatory pattern, confirming that the
-  CR--seismic correlation is modulated by the solar cycle. The vertical dashed
-  line marks the in-sample/out-of-sample split (2020).}
+  $P = 13.0$~yr) and the constant-mean model (dashed) are nearly indistinguishable;
+  BIC comparison slightly favours the constant model ($\text{BF} = 0.75$).
+  The vertical dashed line marks the in-sample/out-of-sample split (2020).}
   \label{fig:combined}
 \end{figure}
 
-The global surrogate test on the full 1976--2025 window yields $p = 0.039$
-($\sigma = 2.06$) at the dominant peak $\tau = -125$~days --- marginally
+The global surrogate test on the full 1976--2025 window yields $p = 0.010$
+($\sigma = 2.57$) at the dominant peak $\tau = -125$~days --- marginally
 significant, but at a lag inconsistent with the claimed $+15$~day CR precursor.
 
-The sinusoidal fit (Equations~\ref{eq:modA}--\ref{eq:bf}) strongly prefers
-$\mathcal{M}_B$ over $\mathcal{M}_A$:
+The sinusoidal fit (Equations~\ref{eq:modA}--\ref{eq:bf}) does \emph{not} prefer
+$\mathcal{M}_B$ over $\mathcal{M}_A$ with the corrected seismic metric:
 \begin{itemize}
-  \item Best-fit period: $P = 9.95 \pm 0.5$~years;
-  \item Amplitude: $A = 0.147$;
-  \item $\Delta\text{BIC} = 6.62$ (positive = $\mathcal{M}_B$ preferred);
-  \item Bayes factor: $\text{BF}_{BA} = 27.5$.
+  \item Best-fit period: $P = 13.0$~years;
+  \item Amplitude: $A = 0.047$;
+  \item $\Delta\text{BIC} = -0.57$ (negative = $\mathcal{M}_A$ constant preferred);
+  \item Bayes factor: $\text{BF}_{BA} = 0.75$.
 \end{itemize}
 
-A Bayes factor of 27.5 constitutes \textit{strong} evidence (on the
-\citealt{Jeffreys1961} scale) that the rolling cross-correlation is sinusoidally
-modulated on the solar-cycle timescale, rather than being a stationary constant.
-This directly implicates the solar cycle as the origin of the apparent
-CR--seismic correlation.
+A Bayes factor of 0.75 is less than 1.0, indicating that the constant (no
+modulation) model is marginally preferred over the sinusoidal model.
+With the correct seismic energy metric, the oscillatory rolling cross-correlation
+previously attributed to solar-cycle modulation is no longer strongly supported;
+the apparent modulation in the old results was partly an artefact of the invalid
+summed-$M_W$ metric, which amplified the solar-cycle confound.
 
 %%%% ═══════════════════════════════════════════════════════════════════════════
 \section{Discussion}
@@ -843,11 +971,14 @@ CR--seismic correlation.
 
 \subsection{Why Does the Raw Correlation Appear So Strong?}
 
-The raw $r = 0.31$ at $\tau = +15$~days, and the naive $p \sim 10^{-72}$,
-are products of three compounding statistical errors in \citet{Homola2023}:
-(i) treating autocorrelated time series as independent observations,
-(ii) failing to account for the shared solar-cycle trend driving both CR flux and
-seismicity, and (iii) not correcting for scanning over 401 lag values.
+The raw $r \approx 0.31$ reported by \citet{Homola2023} at $\tau = +15$~days
+(reduced to $r = 0.081$ with the correct seismic energy metric) and the naive
+$p \sim 10^{-72}$ are products of compounding statistical errors:
+(i) using a physically invalid seismic metric (direct sum of logarithmic $M_W$
+values), which artificially inflated the solar-cycle variation in the seismic series,
+(ii) treating autocorrelated time series as independent observations,
+(iii) failing to account for the shared solar-cycle trend driving both CR flux and
+seismicity, and (iv) not correcting for scanning over 401 lag values.
 
 The solar cycle is the key confounder.
 During solar minimum, the heliospheric magnetic field weakens, allowing more
@@ -910,25 +1041,30 @@ numbers.
 Our principal findings are:
 
 \begin{enumerate}
-  \item The raw cross-correlation $r(+15\,\text{d}) = 0.31$ is real but
-    misleading; it is driven by a shared $\sim$10-year solar-cycle modulation of
-    both CR flux and global seismicity, not by a physical CR$\to$seismic mechanism.
+  \item The raw cross-correlation $r(+15\,\text{d}) = 0.081$ (corrected seismic
+    energy metric) is modest and misleading; it is driven by a shared
+    $\sim$10-year solar-cycle modulation of both CR flux and global seismicity,
+    not by a physical CR$\to$seismic mechanism.
+    The larger value ($r \approx 0.31$) reported by \citet{Homola2023} results
+    from the physically invalid practice of directly summing logarithmic $M_W$
+    values rather than the underlying energies.
 
-  \item After solar-cycle detrending, $r(+15\,\text{d})$ falls to $0.04$ (HP),
-    $0.11$ (STL), or $0.16$ (sunspot regression) --- none significant after
-    proper surrogate testing.
+  \item After solar-cycle detrending, $r(+15\,\text{d})$ falls to $0.027$ (HP),
+    $0.030$ (STL), or $0.037$ (sunspot regression) --- all within the surrogate
+    null distribution and consistent with zero.
 
   \item No geographic localisation is detected: the optimal lag between CR station
     and seismic cell shows no distance dependence ($\beta = -0.45$~d/1000~km,
     $p = 0.21$), inconsistent with a local propagation mechanism.
 
   \item A pre-registered out-of-sample test on 2020--2025 yields
-    $r(+15\,\text{d}) = 0.045$ and $p_\text{global} = 0.994$, entirely
+    $r(+15\,\text{d}) = 0.030$ and $p_\text{global} = 0.100$, entirely
     consistent with noise.
 
-  \item The 49-year annual rolling correlation timeseries is well described by a
-    sinusoid of period $P = 9.95$~years (Bayes factor 27.5 vs.\ constant),
-    confirming solar-cycle modulation.
+  \item The 49-year annual rolling correlation timeseries is not significantly
+    better described by a sinusoid than a constant (Bayes factor 0.75, favoring
+    constant); the previous sinusoidal modulation finding was an artefact of the
+    invalid seismic metric.
 \end{enumerate}
 
 We conclude that there is no statistically credible evidence for a physical

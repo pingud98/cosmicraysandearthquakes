@@ -50,7 +50,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from crq.ingest.nmdb import load_station, resample_daily
-from crq.ingest.usgs import load_usgs
+from crq.ingest.usgs import load_usgs, seismic_energy_per_bin
 from crq.stats.surrogates_gpu import (
     surrogate_xcorr_test_gpu,
     gpu_available,
@@ -141,16 +141,13 @@ def load_full_window(
 
     cr_bin = _bin_series(global_daily, t0, bin_days).reindex(ref_index)
 
-    # Seismic
+    # Seismic: log10 of summed seismic energy (E = 10^(1.5·Mw+4.8) J)
     events = load_usgs(start_year, end_year, usgs_dir)
-    events = events.loc[study_start:study_end]
-    events = events[events["mag"] >= min_mag]
-    daily_mw = events["mag"].resample("1D").sum()
-    daily_mw = daily_mw.reindex(
-        pd.date_range(study_start, study_end, freq="D"), fill_value=0.0
+    seismic_bin = seismic_energy_per_bin(
+        events, study_start, study_end, bin_days, t0, min_mag=min_mag,
     )
-    seismic_bin = _bin_series(daily_mw, t0, bin_days, agg="sum").fillna(0.0)
-    seismic_bin = seismic_bin.reindex(ref_index, fill_value=0.0)
+    floor_val = float(seismic_bin.min())
+    seismic_bin = seismic_bin.reindex(ref_index, fill_value=floor_val)
 
     common      = cr_bin.index.intersection(seismic_bin.index)
     cr_bin      = cr_bin.reindex(common)
@@ -361,16 +358,13 @@ def roster_analysis(
     t0         = pd.Timestamp(oos_start)
     ref_idx    = _ref_index(oos_start, oos_end, bin_days)
 
-    # Seismic series (same for all rosters)
+    # Seismic series (log10 summed energy, same for all rosters)
     events = load_usgs(start_year, end_year, usgs_dir)
-    events = events.loc[oos_start:oos_end]
-    events = events[events["mag"] >= 4.0]
-    daily_mw = events["mag"].resample("1D").sum()
-    daily_mw = daily_mw.reindex(
-        pd.date_range(oos_start, oos_end, freq="D"), fill_value=0.0
+    sei_bin = seismic_energy_per_bin(
+        events, oos_start, oos_end, bin_days, t0, min_mag=4.0,
     )
-    sei_bin = _bin_series(daily_mw, t0, bin_days, agg="sum").fillna(0.0)
-    sei_bin = sei_bin.reindex(ref_idx, fill_value=0.0)
+    floor_val = float(sei_bin.min())
+    sei_bin = sei_bin.reindex(ref_idx, fill_value=floor_val)
 
     for label, roster in [("A", rosters["A"]),
                           ("B_oos", rosters["B_oos"]),

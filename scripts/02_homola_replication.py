@@ -52,7 +52,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from crq.ingest.nmdb import load_station, resample_daily
-from crq.ingest.usgs import load_usgs
+from crq.ingest.usgs import load_usgs, seismic_energy_per_bin
 
 logging.basicConfig(
     level=logging.INFO,
@@ -268,21 +268,23 @@ def build_seismic_metric(
         len(events), min_mag, study_start, study_end,
     )
 
-    # Daily sum-of-Mw then bin to 5-day totals (sum, not mean)
-    daily_mw = events["mag"].resample("1D").sum()
-    daily_mw = daily_mw.reindex(
-        pd.date_range(study_start, study_end, freq="D"), fill_value=0.0
+    # Physically correct: E = 10^(1.5·Mw + 4.8) J per event, summed per bin,
+    # returned as log10(E_sum).  See Kanamori (1977).
+    t0 = pd.Timestamp(study_start)
+    seismic = seismic_energy_per_bin(
+        events, study_start, study_end, bin_days, t0, min_mag=min_mag,
     )
-    seismic = _bin_series(daily_mw, study_start, bin_days, agg="sum").fillna(0.0)
-    seismic.name = "seismic_mw_sum"
+    seismic = seismic.fillna(seismic.min())   # fill rare empty bins with floor
 
     # Align to CR index bins
     if cr_index is not None:
-        seismic = seismic.reindex(cr_index.index, fill_value=0.0)
+        seismic = seismic.reindex(cr_index.index, fill_value=seismic.min())
 
-    nonzero_pct = 100 * (seismic > 0).mean()
+    nonnan_pct = 100 * seismic.notna().mean()
     logger.info(
-        "Seismic metric: %d bins, %.1f%% non-zero", len(seismic), nonzero_pct
+        "Seismic metric (log10 E): %d bins, %.1f%% non-NaN, "
+        "range [%.1f, %.1f] log10(J)",
+        len(seismic), nonnan_pct, float(seismic.min()), float(seismic.max()),
     )
     return seismic
 
@@ -471,8 +473,12 @@ def make_figure(
     # ── Panel 3: seismic metric ────────────────────────────────────────────
     ax3 = axes[2]
     ax3.fill_between(seismic_5d.index, seismic_5d.values, color="firebrick", alpha=0.6, lw=0)
-    ax3.set_ylabel(f"Σ Mw  (M≥{MIN_MAG:.1f})")
-    ax3.set_title(f"Global seismic metric  (sum of all Mw in each 5-day bin)", fontsize=9)
+    ax3.set_ylabel(f"log₁₀(Σ E)  [log₁₀ J]  (M≥{MIN_MAG:.1f})")
+    ax3.set_title(
+        f"Global seismic metric  (log₁₀ of summed energy per 5-day bin, "
+        f"E=10^(1.5·Mw+4.8) J)",
+        fontsize=9,
+    )
     ax3.grid(True, alpha=0.18)
     ax3.set_xlim(seismic_5d.index[0], seismic_5d.index[-1])
 

@@ -60,7 +60,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from crq.ingest.nmdb import load_station, resample_daily
-from crq.ingest.usgs import load_usgs
+from crq.ingest.usgs import load_usgs, seismic_energy_per_bin
 from crq.stats.surrogates import (
     surrogate_xcorr_test,
     n_eff_bretherton,
@@ -336,19 +336,18 @@ def load_cr_and_seismic(
 
     cr_bin = _bin_series(global_daily, study_start, bin_days).reindex(ref_index)
 
-    # --- Seismic metric ---
+    # --- Seismic metric (log10 summed seismic energy, E = 10^(1.5·Mw+4.8) J) ---
     events = load_usgs(start_year, end_year, usgs_dir)
-    full_day_index = pd.date_range(study_start, study_end, freq="D")
     if events.empty or not isinstance(events.index, pd.DatetimeIndex):
-        logger.warning("No USGS events loaded for %s–%s; seismic series will be zeros", study_start, study_end)
-        daily_mw = pd.Series(0.0, index=full_day_index)
+        logger.warning("No USGS events for %s–%s; seismic metric will be NaN", study_start, study_end)
+        seismic_bin = pd.Series(np.nan, index=ref_index)
     else:
-        events = events.loc[study_start:study_end]
-        events = events[events["mag"] >= min_mag]
-        daily_mw = events["mag"].resample("1D").sum()
-        daily_mw = daily_mw.reindex(full_day_index, fill_value=0.0)
-    seismic_bin = _bin_series(daily_mw, study_start, bin_days, agg="sum").fillna(0.0)
-    seismic_bin = seismic_bin.reindex(ref_index, fill_value=0.0)
+        t0_bin = pd.Timestamp(study_start)
+        seismic_bin = seismic_energy_per_bin(
+            events, study_start, study_end, bin_days, t0_bin, min_mag=min_mag,
+        )
+        floor_val = float(seismic_bin.min())
+        seismic_bin = seismic_bin.reindex(ref_index, fill_value=floor_val)
 
     # Align on common non-NaN index
     common = cr_bin.index.intersection(seismic_bin.index)

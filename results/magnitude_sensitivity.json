@@ -1,0 +1,20 @@
+{
+  "M_ge_4.5": {
+    "r_at_tau_plus15d": 0.0786,
+    "peak_r": 0.1349,
+    "peak_lag_days": -525,
+    "frac_empty_bins_pct": 0.0
+  },
+  "M_ge_5.0": {
+    "r_at_tau_plus15d": 0.0722,
+    "peak_r": 0.1262,
+    "peak_lag_days": -525,
+    "frac_empty_bins_pct": 0.0
+  },
+  "M_ge_6.0": {
+    "r_at_tau_plus15d": 0.0495,
+    "peak_r": 0.1104,
+    "peak_lag_days": -525,
+    "frac_empty_bins_pct": 19.7
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "N_raw": 3214,
+  "r_at_tau_plus15d": 0.07862,
+  "methods": {
+    "Bartlett_1946_first_order": {
+      "Neff": 2923.1,
+      "CI_95_r": [
+        0.04248258115478359,
+        0.11454542812932819
+      ],
+      "note": "N\u00b7(1\u2212\u03c1\u2081\u2093\u03c1\u2081\u1d67)/(1+\u03c1\u2081\u2093\u03c1\u2081\u1d67)  [current implementation]"
+    },
+    "Bretherton_1999_full_sum": {
+      "Neff": 769.4,
+      "CI_95_r": [
+        0.007981897773749757,
+        0.14847087395884573
+      ],
+      "note": "N / (1 + 2\u03a3_k \u03c1_xx(k)\u03c1_yy(k))  K=200 lags"
+    },
+    "Monte_Carlo_phase_surrogates": {
+      "Neff": 593.8,
+      "CI_95_r": [
+        -0.0018607729923741843,
+        0.15808238828278748
+      ],
+      "note": "1/Var(r_null) from 1000 phase-randomised y series"
+    }
+  }
+}

@@ -140,24 +140,85 @@ def load_usgs(
 # Aggregation
 # ---------------------------------------------------------------------------
 
+def seismic_energy_per_bin(
+    events: pd.DataFrame,
+    study_start: str,
+    study_end: str,
+    bin_days: int,
+    t0: "pd.Timestamp | None" = None,
+    *,
+    min_mag: float = 4.5,
+) -> pd.Series:
+    """
+    Physically correct seismic energy metric per *bin_days*-day bin.
+
+    Each earthquake contributes its radiated energy
+        E_i = 10^(1.5 · Mw_i + 4.8)  [joules]
+    (Kanamori 1977).  Values are summed over all events in the bin and the
+    result is returned as log10(E_bin_sum).  Empty bins → NaN.
+
+    Parameters
+    ----------
+    events      : DataFrame with DatetimeIndex and a "mag" column (from load_usgs).
+    study_start : ISO date string (inclusive).
+    study_end   : ISO date string (inclusive).
+    bin_days    : Bin width in days.
+    t0          : Anchor timestamp for floor-division binning; defaults to
+                  pd.Timestamp(study_start).
+    min_mag     : Minimum magnitude threshold.
+
+    Returns
+    -------
+    pd.Series with DatetimeIndex of bin start-dates and float64 values
+    (log10 of summed seismic energy in joules).
+    """
+    if t0 is None:
+        t0 = pd.Timestamp(study_start)
+
+    ev = events.loc[study_start:study_end]
+    ev = ev[ev["mag"] >= min_mag].copy()
+
+    ev["energy"] = np.power(10.0, 1.5 * ev["mag"].values + 4.8)
+
+    # Daily sum of energy
+    daily_e = ev["energy"].resample("1D").sum()
+    full_day_idx = pd.date_range(study_start, study_end, freq="D")
+    daily_e = daily_e.reindex(full_day_idx, fill_value=0.0)
+
+    # Floor-division binning anchored at t0
+    days_from_t0 = (daily_e.index - t0).days
+    bin_num = days_from_t0 // bin_days
+    bin_dates = t0 + pd.to_timedelta(bin_num * bin_days, unit="D")
+    bin_energy = daily_e.groupby(bin_dates).sum()
+
+    # log10; empty bins → NaN
+    result = np.log10(bin_energy.where(bin_energy > 0, other=np.nan))
+    result.name = "log10_seismic_energy_J"
+    return result
+
+
 def compute_daily_seismic(
     events: pd.DataFrame,
     interval: str = "1D",
     origin: str = "1960-01-01",
 ) -> pd.DataFrame:
     """
-    Resample earthquake events to *interval* using the log-power average of
-    magnitude (same formula as the notebook's ``log_avg``).
+    .. deprecated::
+        This function applied a dB-domain average to Mw values, which is
+        physically invalid (Mw is already logarithmic so 10·log10(mean(10^(Mw/10)))
+        does not represent energy).  Use :func:`seismic_energy_per_bin` instead.
 
-    NaN days (no events) remain NaN — **not** zero.
+    Retained for backwards compatibility with existing callers only.
     """
     mag = events["mag"].copy()
 
-    def _log_avg(s: pd.Series) -> float:
+    def _energy_log_mean(s: pd.Series) -> float:
         arr = s.dropna().values
         if arr.size == 0:
             return np.nan
-        return float(10.0 * np.log10(np.mean(np.power(10.0, arr / 10.0))))
+        # Correct: sum seismic energy, return log10
+        energies = np.power(10.0, 1.5 * arr + 4.8)
+        return float(np.log10(np.sum(energies)))
 
-    daily = mag.resample(interval).apply(_log_avg)
+    daily = mag.resample(interval).apply(_energy_log_mean)
     return daily.rename("mag").to_frame()
