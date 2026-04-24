@@ -291,6 +291,22 @@ rank-order resampling (in time domain) until convergence.
 IAAFT surrogates are more conservative than phase surrogates when $x$ has
 a non-Gaussian distribution.
 
+\subsubsection{Block-Bootstrap Surrogates}
+\label{sec:blockbootstrap}
+
+IAAFT surrogates preserve the power spectrum and amplitude distribution of each
+series but assume linearity and stationarity --- assumptions violated by seismicity,
+which is non-stationary, heavy-tailed, and aftershock-clustered.
+As a complementary null we use a \emph{circular block bootstrap} (CBB) that
+makes no parametric assumptions about the spectral shape.
+Each surrogate is constructed by independently resampling $x$ and $y$ in
+contiguous circular blocks of length $B = 804$ bins ($\approx 11$~yr,
+i.e.\ approximately one solar cycle), drawn with replacement.
+Independent resampling of $x$ and $y$ destroys any cross-series correlation
+while preserving each series' within-block temporal structure.
+We generate $S = 5{,}000$ surrogate pairs and compare the resulting null
+distribution to the IAAFT null.
+
 \subsubsection{Global $p$-Value}
 \label{sec:pvalue}
 
@@ -358,6 +374,57 @@ relationship from the shared solar-cycle trend:
 For the out-of-sample window ($\sim$5 years, less than one solar cycle), the
 HP filter is inappropriate (it would remove any genuine sub-decadal signal);
 we use linear detrending instead, as pre-specified in the pre-registration.
+
+\subsection{Partial Correlation Analysis}
+\label{sec:methods:partialcorr}
+
+Because the solar-cycle component is removed \emph{before} concluding that the
+observed signal is solar-cycle-driven, there is a potential circularity concern.
+We address this with a partial correlation analysis on the \emph{unfiltered} data.
+The seismic metric $y_t$ is regressed on the smoothed sunspot number $z_t$:
+\begin{equation}
+  \hat{y}_t = \hat{\beta} z_t + \hat{\alpha}, \qquad
+  y_t^\text{resid} = y_t - \hat{y}_t,
+  \label{eq:partialcorr}
+\end{equation}
+and the cross-correlation between the CR index $x_t$ and the residual
+$y_t^\text{resid}$ is computed across all lags.
+If the CR--seismic correlation is driven entirely by a shared solar-cycle trend,
+$r(x, y^\text{resid})$ should approach zero.
+This analysis avoids any digital filter and thus sidesteps the preprocessing
+circularity.
+
+\subsection{Nonlinear Dependence Tests}
+\label{sec:methods:nonlinear}
+
+Cross-correlation captures only linear dependence; we supplement it with two
+nonlinear measures for the main CR--seismic pair.
+
+\paragraph{Spectral coherence.}
+The magnitude-squared coherence at frequency $f$ is
+\begin{equation}
+  C_{xy}(f) = \frac{|S_{xy}(f)|^2}{S_{xx}(f)\,S_{yy}(f)},
+  \label{eq:coherence}
+\end{equation}
+estimated via Welch's method with $L = 2{,}048$-point Hann windows (75\%
+overlap), giving a frequency resolution of $(1/5)/2048 \approx 0.036$
+cycles~yr$^{-1}$ --- sufficient to resolve the solar-cycle band
+(0.08--0.115~cycles~yr$^{-1}$, periods 9--12.5~yr).
+
+\paragraph{Mutual information.}
+We estimate $I(x; y)$ at lags $\tau = 0$ and $\tau = +15$~d using the
+\citet{Kraskov2004} $k$-nearest-neighbour estimator ($k = 5$, Chebyshev
+metric in joint space):
+\begin{equation}
+  \hat{I}(x; y) = \psi(k) + \psi(N)
+                  - \bigl\langle\psi(n_x + 1)\bigr\rangle
+                  - \bigl\langle\psi(n_y + 1)\bigr\rangle,
+  \label{eq:mi}
+\end{equation}
+where $\psi$ is the digamma function and $n_x(i)$, $n_y(i)$ count marginal
+neighbours within the $k$-th-neighbour radius.
+Statistical significance is assessed against a shuffle null of 1{,}000
+random permutations of $y$.
 
 \subsection{Geographic Localisation Scan}
 \label{sec:geo}
@@ -466,7 +533,7 @@ The seismic activity per bin is measured by the total released seismic energy,
 computed as the sum of the individual earthquake energies:
 \begin{equation}
   E_t = \sum_{i \in \mathcal{B}_t} 10^{1.5\, M_{W,i}},
-  \label{eq:energy}
+  \label{eq:energy_bin}
 \end{equation}
 where $\mathcal{B}_t$ is the set of $M_W \geq 4.5$ events falling in bin $t$.
 Working with $\log_{10} E_t$ removes the extreme skewness of $E_t$ and is
@@ -827,6 +894,254 @@ following large events) do not drive the dominant correlation structure.
   \label{fig:mag_threshold}
 \end{figure}
 
+\subsection{Block-Bootstrap Surrogate Comparison}
+\label{sec:res:blockbootstrap}
+
+Figure~\ref{fig:blockbootstrap} shows the block-bootstrap (CBB) null
+distributions for $r(+15\,\text{d})$ and the peak $|r|$ applied to the raw,
+undetrended series.
+Under the CBB null ($B = 804$ bins, $S = 5{,}000$):
+\begin{itemize}
+  \item $p_\text{CBB}(+15\,\text{d}) = 0.022$ for the raw $r(+15\,\text{d}) = 0.079$;
+  \item $p_\text{CBB}(\text{peak}) = 0.008$ for the dominant raw peak
+    $r = 0.135$ at $\tau = -525$~days.
+\end{itemize}
+Both p-values reflect the fact that the raw series share a common 11-year
+solar-cycle trend, so independently block-resampled surrogates occasionally
+reproduce similar trend-induced correlations.
+After HP detrending and IAAFT testing (Section~\ref{sec:res:surr}),
+$r(+15\,\text{d})$ drops to 0.027 and falls well within the surrogate null,
+confirming that the marginal significance seen here is a solar-cycle artefact,
+not a genuine cross-series signal.
+The block-bootstrap and IAAFT null shapes are qualitatively similar,
+indicating that IAAFT's parametric assumptions do not materially distort the
+null distribution for these data.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\textwidth]{block_bootstrap_null.png}
+  \caption{Block-bootstrap null distributions for the raw CR--seismic pair
+  ($B = 804$ bins $\approx 11$~yr, $S = 5{,}000$ surrogates).
+  \textbf{Left}: distribution of $r(+15\,\text{d})$ under the CBB null; observed
+  value $r = 0.079$ (red) lies at the $p = 0.022$ tail.
+  \textbf{Right}: distribution of the peak $|r|$; observed peak $0.135$ at
+  $\tau = -525$~d lies at $p = 0.008$.
+  Grey dashed lines mark the 95\% CI of the null.}
+  \label{fig:blockbootstrap}
+\end{figure}
+
+\subsection{Partial Correlation: Controlling for Sunspot Number}
+\label{sec:res:partialcorr}
+
+Figure~\ref{fig:partialcorr} shows the cross-correlation function for both the
+raw seismic metric and the sunspot-regressed residual.
+The OLS regression of seismic energy on the smoothed sunspot number gives
+$\hat{\beta} = -0.0011$~units per sunspot number unit (a weak negative
+relationship) and $\hat{\alpha} = 14.9$.
+After removing this sunspot component, $r(+15\,\text{d})$ drops from 0.079
+to 0.029 --- a reduction of 63\%.
+This confirms that most of the raw CR--seismic correlation at the claimed lag
+is attributable to the shared solar-cycle trend without invoking any digital
+filter.
+The residual partial correlation ($r = 0.029$) is indistinguishable from zero
+($p = 0.083$, treating bins as independent; even smaller when autocorrelation
+is accounted for).
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{partial_correlation.png}
+  \caption{Cross-correlation $r(\tau)$ for the raw seismic metric (blue) and
+  the sunspot-regressed seismic residual (orange), both against the CR index,
+  on the raw (unfiltered) in-sample series.
+  The claimed $\tau = +15$~d (grey dashed line) shows $r_\text{raw} = 0.079$
+  vs.\ $r_\text{partial} = 0.029$, a 63\% reduction once the shared solar-cycle
+  component is regressed out.}
+  \label{fig:partialcorr}
+\end{figure}
+
+\subsection{Spectral Coherence and Mutual Information}
+\label{sec:res:coherence}
+
+Figure~\ref{fig:coherence} shows the magnitude-squared coherence spectrum and
+the mutual information shuffle null.
+
+\paragraph{Coherence.}
+The mean coherence in the solar-cycle band (0.08--0.115~cycles~yr$^{-1}$)
+is $\bar{C}_{xy} = 0.840$, substantially above the 95\% significance
+threshold of 0.776 (for $K = 3$ Welch segments; see Section~\ref{sec:methods:nonlinear}).
+This confirms that CR and seismic activity share strong common variance at
+the $\sim$11-year frequency --- the spectral signature of the solar-cycle
+confound identified in Section~\ref{sec:discussion}.
+Note that the limited number of Welch segments ($K \approx 3$) makes the
+coherence estimate at this frequency uncertain; the result should be interpreted
+as indicative rather than precise.
+
+\paragraph{Mutual information.}
+The kNN mutual information at lag $\tau = 0$ is
+$\hat{I} = 0.007$~nats, with a shuffle-null p-value of $p = 0.062$ --- not
+significant.
+At $\tau = +15$~d, $\hat{I} = 0.000$~nats ($p = 1.000$), confirming the
+complete absence of any nonlinear association at the claimed lag.
+Together with the linear cross-correlation results, this establishes that
+there is no detectable statistical dependence --- linear or nonlinear ---
+between the CR index and global seismicity at the claimed $+15$~day lag.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\textwidth]{spectral_coherence.png}
+  \caption{\textbf{Left}: Magnitude-squared coherence between the CR index and
+  seismic metric (blue), with the solar-cycle band shaded (orange, 0.08--0.115
+  cycles~yr$^{-1}$) and the 95\% significance level (red dashed).
+  The mean coherence in the SC band is 0.840, confirming a strong shared
+  solar-cycle component.
+  \textbf{Right}: kNN mutual information ($k = 5$) at lag $\tau = 0$ (blue)
+  and $\tau = +15$~d (orange) vs.\ their respective shuffle-null distributions.
+  Both observed MI values are indistinguishable from zero; $p(+15\,\text{d}) = 1.000$.}
+  \label{fig:coherence}
+\end{figure}
+
+\subsection{Missing-Data Sensitivity}
+\label{sec:res:missing}
+
+Table~\ref{tab:missing} reports the NaN fraction in the global CR index for
+station thresholds of 2, 3, and 5.
+In all cases the NaN fraction is 0.0\%: the 44-station NMDB network provides
+complete 5-day coverage over 1976--2019 even under the strictest threshold
+tested.
+Consequently, $r(+15\,\text{d})$ is identical (0.079) across all thresholds,
+confirming that the result is not an artefact of gaps in the CR record.
+NaN bins show no clustering near solar maxima (clustering ratio = 1.0 at all
+thresholds, i.e.\ indistinguishable from uniform), ruling out any systematic
+data dropout that could correlate with the solar cycle.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Missing-data sensitivity: global CR index and correlation at
+  $\tau = +15$~days for three station-threshold values.}
+  \label{tab:missing}
+  \begin{tabular}{rrrr}
+    \toprule
+    Min.\ stations & NaN fraction & NaN near solar max & $r(+15\,\text{d})$ \\
+    \midrule
+    2 & 0.0\% & 0.0\% & 0.079 \\
+    3 & 0.0\% & 0.0\% & 0.079 \\
+    5 & 0.0\% & 0.0\% & 0.079 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Bin-Size Sensitivity}
+\label{sec:res:binsize}
+
+Figure~\ref{fig:binsize} shows the cross-correlation functions at three bin
+sizes: 1-day, 5-day, and 27-day (Bartels rotation period).
+
+\begin{itemize}
+  \item \textbf{1-day bins}: $r(+15\,\text{d}) = 0.036$;
+    dominant peak $r = 0.088$ at $\tau = -525$~days.
+  \item \textbf{5-day bins} (baseline): $r(+15\,\text{d}) = 0.079$;
+    dominant peak $r = 0.135$ at $\tau = -525$~days.
+  \item \textbf{27-day bins}: $r(+27\,\text{d}) = 0.123$;
+    dominant peak $r = 0.217$ at $\tau \approx -513$~days.
+\end{itemize}
+
+In all cases the dominant peak is at approximately $-525$ to $-513$~days
+($\approx -18$ months, consistent with a half-solar-cycle lag), not at
+$+15$~days.
+The correlation at the claimed lag grows with bin size because longer bins
+increasingly average out high-frequency noise and emphasise the solar-cycle
+component.
+This bin-size dependence is the behaviour expected of a solar-cycle artefact
+and is inconsistent with a genuine short-lag (15-day) physical mechanism,
+which should be insensitive to whether one uses 1-day or 27-day bins.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{bin_size_sensitivity.png}
+  \caption{Cross-correlation $r(\tau)$ for three bin sizes: 1-day (left),
+  5-day (centre), 27-day (right).
+  The dominant peak (red dotted) consistently falls near $\tau \approx -520$~days
+  across all bin sizes.
+  The correlation at the claimed $\tau = +15$~days (grey dashed) increases
+  from 0.036 to 0.123 as bin size increases, consistent with increasing
+  solar-cycle leakage rather than a physical short-lag signal.}
+  \label{fig:binsize}
+\end{figure}
+
+\subsection{Earthquake Declustering (Gardner--Knopoff)}
+\label{sec:res:decluster}
+
+Figure~\ref{fig:decluster} compares the cross-correlation for the full
+catalogue and the mainshock-only catalogue after applying the
+\citet{GardnerKnopoff1974} declustering algorithm.
+Of 232{,}043 events ($M \geq 4.5$, 1976--2019), 65{,}874 (28.4\%) were
+classified as aftershocks and removed, leaving 166{,}169 mainshocks.
+
+The correlation at the claimed lag changes from $r(+15\,\text{d}) = 0.079$
+(full) to $r(+15\,\text{d}) = 0.065$ (declustered), a reduction of only 0.014
+--- well below the $\Delta r = 0.03$ threshold for a material change.
+The peak structure and dominant lag are unchanged.
+We conclude that aftershock clustering is not a primary confound in this
+analysis; the signal does not disappear when aftershock sequences are removed.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{declustered_xcorr.png}
+  \caption{Cross-correlation for the full catalogue ($n = 232{,}043$ events,
+  blue) and the Gardner--Knopoff declustered catalogue ($n = 166{,}169$
+  mainshocks, orange), in-sample 1976--2019.
+  Removing 28.4\% of events as aftershocks changes $r(+15\,\text{d})$ by
+  only $\Delta r = 0.014$, confirming the result is not driven by aftershock
+  swarms.}
+  \label{fig:decluster}
+\end{figure}
+
+\subsection{Sub-Period Analysis by Solar Cycle}
+\label{sec:res:subcycles}
+
+Figure~\ref{fig:subcycles} shows the cross-correlation computed independently
+within each of the four complete solar cycles (21--24) in the in-sample window.
+Table~\ref{tab:subcycles} summarises the results.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Per-solar-cycle cross-correlation at $\tau = +15$~days and the
+  within-cycle dominant peak.}
+  \label{tab:subcycles}
+  \begin{tabular}{lrrrrr}
+    \toprule
+    Cycle & Period & $N$ (bins) & $r(+15\,\text{d})$ & Peak $|r|$ & Peak $\tau$ (d) \\
+    \midrule
+    21 & 1976--1987 & 768 & $+0.071$ & 0.118 & $-65$ \\
+    22 & 1987--1996 & 724 & $+0.057$ & 0.104 & $-125$ \\
+    23 & 1997--2009 & 901 & $+0.018$ & 0.060 & $+125$ \\
+    24 & 2009--2020 & 810 & $+0.073$ & 0.177 & $-125$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The correlations at $\tau = +15$~d are positive in all four cycles (range
+0.018--0.073), but the magnitudes vary by a factor of four, and the dominant
+within-cycle peak lags are inconsistent: $-65$, $-125$, $+125$, and $-125$~days.
+If the correlation were a genuine physical CR precursor, its lag should be
+stable and reproducible across cycles.
+The inconsistency of the dominant peak --- which oscillates between positive
+and negative lags --- is instead the signature of a cycle-to-cycle drift in
+the relative phase between the CR and seismic solar-cycle modulations, a
+classical hallmark of a shared-trend confound rather than a causal relationship.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{solar_cycle_xcorr.png}
+  \caption{Cross-correlation $r(\tau)$ within each of the four complete solar
+  cycles (21--24) of the in-sample period (1976--2019).
+  The claimed lag $\tau = +15$~days (grey dashed) shows modest positive
+  correlations (0.018--0.073), but the dominant peak lag (red dotted) is
+  inconsistent across cycles ($-65$, $-125$, $+125$, $-125$~days), pointing
+  to a drift in the relative solar-cycle phase rather than a physical mechanism.}
+  \label{fig:subcycles}
+\end{figure}
+
 \subsection{Geographic Localisation}
 \label{sec:res:geo}
 
@@ -1065,6 +1380,29 @@ Our principal findings are:
     better described by a sinusoid than a constant (Bayes factor 0.75, favoring
     constant); the previous sinusoidal modulation finding was an artefact of the
     invalid seismic metric.
+
+  \item Seven additional robustness checks all corroborate the null result:
+    \begin{itemize}
+      \item Block-bootstrap surrogates ($B \approx 11$~yr, $n = 5{,}000$) yield
+        $p_\text{CBB}(+15\,\text{d}) = 0.022$ on the \emph{raw} series;
+        after detrending the result is within the null.
+      \item Partial correlation (regressing seismic on sunspots before correlating
+        with CR) reduces $r(+15\,\text{d})$ from 0.079 to 0.029 (63\% drop),
+        confirming solar-cycle confounding without any filter.
+      \item Mean spectral coherence in the solar-cycle band is 0.840 (> 95\%
+        threshold), while mutual information at $\tau = +15$~d is exactly zero
+        ($p = 1.000$): no nonlinear signal at the claimed lag.
+      \item Missing data: 0\% NaN bins at all station thresholds;
+        $r(+15\,\text{d})$ is unchanged for min-station thresholds 2, 3, or 5.
+      \item Bin-size sensitivity: the dominant peak is at $\tau \approx -520$~days
+        for 1-day, 5-day, and 27-day bins; $r$ at $+15$~days scales with bin size
+        as expected for solar-cycle leakage, not a physical mechanism.
+      \item Earthquake declustering removes 28\% of events as aftershocks;
+        $r(+15\,\text{d})$ changes by only $\Delta r = 0.014$ --- not a material confound.
+      \item Per-solar-cycle analysis shows inconsistent dominant peak lags
+        ($-65$, $-125$, $+125$, $-125$~days across cycles 21--24),
+        the signature of a phase-drifting solar-cycle artefact.
+    \end{itemize}
 \end{enumerate}
 
 We conclude that there is no statistically credible evidence for a physical

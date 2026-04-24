@@ -1,30 +1,56 @@
-\contentsline {section}{\numberline {1}Introduction}{4}{section.1}%
-\contentsline {section}{\numberline {2}Data}{5}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Cosmic-Ray Flux: NMDB Neutron Monitors}{5}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Seismic Activity: USGS Earthquake Catalogue}{5}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Solar Activity: SIDC Sunspot Number}{5}{subsection.2.3}%
-\contentsline {section}{\numberline {3}Methods}{5}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Cross-Correlation at Lag $\tau $}{5}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Effective Degrees of Freedom}{6}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Surrogate Significance Tests}{6}{subsection.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.1}Phase Randomisation}{6}{subsubsection.3.3.1}%
-\contentsline {subsubsection}{\numberline {3.3.2}IAAFT Surrogates}{6}{subsubsection.3.3.2}%
-\contentsline {subsubsection}{\numberline {3.3.3}Global $p$-Value}{6}{subsubsection.3.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.4}GPU Acceleration}{7}{subsubsection.3.3.4}%
-\contentsline {subsection}{\numberline {3.4}Solar-Cycle Detrending}{7}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5}Geographic Localisation Scan}{7}{subsection.3.5}%
-\contentsline {subsection}{\numberline {3.6}Pre-Registered Out-of-Sample Validation}{8}{subsection.3.6}%
-\contentsline {subsection}{\numberline {3.7}Combined Timeseries: Sinusoidal Envelope Fit}{8}{subsection.3.7}%
-\contentsline {section}{\numberline {4}Results}{9}{section.4}%
-\contentsline {subsection}{\numberline {4.1}In-Sample Replication (1976--2019)}{9}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}IAAFT Surrogate Test}{9}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Effect of Solar-Cycle Detrending}{9}{subsection.4.3}%
-\contentsline {subsection}{\numberline {4.4}Geographic Localisation}{13}{subsection.4.4}%
-\contentsline {subsection}{\numberline {4.5}Pre-Registered Out-of-Sample Validation (2020--2025)}{13}{subsection.4.5}%
-\contentsline {subsection}{\numberline {4.6}Combined 1976--2025 Analysis: Sinusoidal Modulation}{14}{subsection.4.6}%
-\contentsline {section}{\numberline {5}Discussion}{16}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Why Does the Raw Correlation Appear So Strong?}{16}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Physical Plausibility of the Claimed Mechanism}{16}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Comparison with Prior Replication Attempts}{17}{subsection.5.3}%
-\contentsline {subsection}{\numberline {5.4}Limitations}{17}{subsection.5.4}%
-\contentsline {section}{\numberline {6}Conclusions}{17}{section.6}%
+\contentsline {section}{\numberline {1}Introduction}{5}{section.1}%
+\contentsline {section}{\numberline {2}Data}{6}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Cosmic-Ray Flux: NMDB Neutron Monitors}{6}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Seismic Activity: USGS Earthquake Catalogue}{6}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Solar Activity: SIDC Sunspot Number}{6}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Methods}{7}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Cross-Correlation at Lag $\tau $}{7}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Effective Degrees of Freedom}{7}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Surrogate Significance Tests}{7}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Phase Randomisation}{7}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}IAAFT Surrogates}{8}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}Block-Bootstrap Surrogates}{8}{subsubsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.4}Global $p$-Value}{8}{subsubsection.3.3.4}%
+\contentsline {subsubsection}{\numberline {3.3.5}GPU Acceleration}{8}{subsubsection.3.3.5}%
+\contentsline {subsection}{\numberline {3.4}Solar-Cycle Detrending}{9}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Partial Correlation Analysis}{9}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Nonlinear Dependence Tests}{10}{subsection.3.6}%
+\contentsline {paragraph}{Spectral coherence.}{10}{section*.2}%
+\contentsline {paragraph}{Mutual information.}{10}{section*.3}%
+\contentsline {subsection}{\numberline {3.7}Geographic Localisation Scan}{10}{subsection.3.7}%
+\contentsline {subsection}{\numberline {3.8}Pre-Registered Out-of-Sample Validation}{11}{subsection.3.8}%
+\contentsline {subsection}{\numberline {3.9}Combined Timeseries: Sinusoidal Envelope Fit}{11}{subsection.3.9}%
+\contentsline {section}{\numberline {4}Results}{12}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Raw Pairwise Correlations Between CR, Seismic, and Sunspot Data}{12}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}CR index: station distribution}{12}{subsubsection.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.1.2}Seismic energy metric}{12}{subsubsection.4.1.2}%
+\contentsline {subsubsection}{\numberline {4.1.3}Sunspot number}{12}{subsubsection.4.1.3}%
+\contentsline {subsubsection}{\numberline {4.1.4}Correlation results}{13}{subsubsection.4.1.4}%
+\contentsline {paragraph}{CR vs.\ seismicity.}{13}{section*.4}%
+\contentsline {paragraph}{CR vs.\ sunspot number.}{13}{section*.5}%
+\contentsline {paragraph}{Sunspot vs.\ seismicity.}{13}{section*.6}%
+\contentsline {subsubsection}{\numberline {4.1.5}Interpretation: a confounding triangle}{13}{subsubsection.4.1.5}%
+\contentsline {subsection}{\numberline {4.2}In-Sample Replication (1976--2019)}{14}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}IAAFT Surrogate Test}{17}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Effect of Solar-Cycle Detrending}{18}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Detrending Robustness}{18}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Comparison of $N_\text {eff}$ Estimators}{18}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Magnitude Threshold Sensitivity}{20}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Block-Bootstrap Surrogate Comparison}{20}{subsection.4.8}%
+\contentsline {subsection}{\numberline {4.9}Partial Correlation: Controlling for Sunspot Number}{21}{subsection.4.9}%
+\contentsline {subsection}{\numberline {4.10}Spectral Coherence and Mutual Information}{21}{subsection.4.10}%
+\contentsline {paragraph}{Coherence.}{21}{section*.20}%
+\contentsline {paragraph}{Mutual information.}{22}{section*.21}%
+\contentsline {subsection}{\numberline {4.11}Missing-Data Sensitivity}{22}{subsection.4.11}%
+\contentsline {subsection}{\numberline {4.12}Bin-Size Sensitivity}{24}{subsection.4.12}%
+\contentsline {subsection}{\numberline {4.13}Earthquake Declustering (Gardner--Knopoff)}{24}{subsection.4.13}%
+\contentsline {subsection}{\numberline {4.14}Sub-Period Analysis by Solar Cycle}{25}{subsection.4.14}%
+\contentsline {subsection}{\numberline {4.15}Geographic Localisation}{25}{subsection.4.15}%
+\contentsline {subsection}{\numberline {4.16}Pre-Registered Out-of-Sample Validation (2020--2025)}{28}{subsection.4.16}%
+\contentsline {subsection}{\numberline {4.17}Combined 1976--2025 Analysis: Sinusoidal Modulation}{29}{subsection.4.17}%
+\contentsline {section}{\numberline {5}Discussion}{30}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Why Does the Raw Correlation Appear So Strong?}{30}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Physical Plausibility of the Claimed Mechanism}{30}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Comparison with Prior Replication Attempts}{31}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Limitations}{31}{subsection.5.4}%
+\contentsline {section}{\numberline {6}Conclusions}{31}{section.6}%

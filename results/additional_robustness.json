@@ -1,0 +1,136 @@
+{
+  "3a_block_bootstrap": {
+    "block_len_bins": 804,
+    "obs_r_15d": 0.07861489210244768,
+    "obs_peak_r": 0.13487884023035338,
+    "p_block_15d": 0.0224,
+    "p_block_peak": 0.0078,
+    "ci95_15d": [
+      -0.06666438961658633,
+      0.0682932463714636
+    ],
+    "iaaft_p_global_raw": 0.0,
+    "interpretation": "p-value similar to IAAFT"
+  },
+  "3b_partial_correlation": {
+    "sunspot_slope": -0.0010697974037700612,
+    "r_raw_15d": 0.0786167037488285,
+    "r_partial_15d": 0.028775255831885685,
+    "drop_fraction_at_15d": 0.6339803825428832,
+    "peak_r_partial": 0.10058325167521967,
+    "interpretation": "Partial correlation near zero \u2014 solar-cycle confounding confirmed"
+  },
+  "3c_coherence_mi": {
+    "coherence_solar_cycle_band": 0.8398522322268607,
+    "coherence_95pct_threshold": 0.7763932022500211,
+    "mi_lag0": 0.006683319941448218,
+    "mi_lag15d": 0.0,
+    "p_mi_lag0": 0.062,
+    "p_mi_lag15d": 1.0
+  },
+  "3d_missing_data": {
+    "station_threshold_sensitivity": [
+      {
+        "min_stations": 2,
+        "nan_fraction": 0.0,
+        "nan_fraction_near_solar_max": 0.0,
+        "nan_fraction_far_from_solar_max": 0.0,
+        "clustering_ratio": 0.0,
+        "r_at_15d": 0.07861670374882847
+      },
+      {
+        "min_stations": 3,
+        "nan_fraction": 0.0,
+        "nan_fraction_near_solar_max": 0.0,
+        "nan_fraction_far_from_solar_max": 0.0,
+        "clustering_ratio": 0.0,
+        "r_at_15d": 0.07861670374882847
+      },
+      {
+        "min_stations": 5,
+        "nan_fraction": 0.0,
+        "nan_fraction_near_solar_max": 0.0,
+        "nan_fraction_far_from_solar_max": 0.0,
+        "clustering_ratio": 0.0,
+        "r_at_15d": 0.07861670374882847
+      }
+    ]
+  },
+  "3e_bin_size": {
+    "bin_size_sensitivity": [
+      {
+        "bin_days": 1,
+        "r_at_claimed_lag": 0.035457258390485795,
+        "claimed_lag_days": 15,
+        "peak_r": 0.08765920746165931,
+        "peak_lag_days": -525
+      },
+      {
+        "bin_days": 5,
+        "r_at_claimed_lag": 0.0786167037488285,
+        "claimed_lag_days": 15,
+        "peak_r": 0.13487884023035338,
+        "peak_lag_days": -525
+      },
+      {
+        "bin_days": 27,
+        "r_at_claimed_lag": 0.12302559221199305,
+        "claimed_lag_days": 27,
+        "peak_r": 0.21674265231313997,
+        "peak_lag_days": -513
+      }
+    ]
+  },
+  "3f_declustering": {
+    "n_events_full": 232043,
+    "n_mainshocks": 166169,
+    "fraction_removed": 0.28388703817826866,
+    "r_15d_full": 0.0786167037488285,
+    "r_15d_declustered": 0.06502872576089179,
+    "peak_r_full": 0.13487884023035338,
+    "peak_r_declustered": 0.12384155136507456,
+    "interpretation": "Aftershock clustering is NOT a primary confound \u2014 result stable after GK declustering"
+  },
+  "3g_solar_cycles": {
+    "per_cycle": {
+      "cycle_21": {
+        "start": "1976-03-01",
+        "end": "1986-09-01",
+        "n_bins": 768,
+        "r_at_15d": 0.07118320436089393,
+        "peak_r": 0.1180329918201807,
+        "peak_lag_days": -65
+      },
+      "cycle_22": {
+        "start": "1986-09-01",
+        "end": "1996-08-01",
+        "n_bins": 724,
+        "r_at_15d": 0.05738270708702726,
+        "peak_r": 0.10420488714969577,
+        "peak_lag_days": -125
+      },
+      "cycle_23": {
+        "start": "1996-08-01",
+        "end": "2008-12-01",
+        "n_bins": 901,
+        "r_at_15d": 0.017585753106899405,
+        "peak_r": 0.05956387248452478,
+        "peak_lag_days": 125
+      },
+      "cycle_24": {
+        "start": "2008-12-01",
+        "end": "2019-12-31",
+        "n_bins": 810,
+        "r_at_15d": 0.07310193509089967,
+        "peak_r": 0.1769572220601618,
+        "peak_lag_days": -125
+      }
+    },
+    "r15d_range": [
+      0.017585753106899405,
+      0.07310193509089967
+    ],
+    "sign_consistent_across_cycles": true,
+    "interpretation": "r(+15d) consistent in sign across all solar cycles"
+  }
+}
