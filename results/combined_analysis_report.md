@@ -1,36 +1,36 @@
 # Combined Full-Series Analysis (1976–2025)
 
-Generated: 2026-04-24T05:33:39Z
+Generated: 2026-04-24T12:08:35Z
 Full window: 1976-01-01 → 2025-04-29
 In-sample: 1976-01-01 → 2019-12-31
 Out-of-sample: 2020-01-01 → 2025-04-29
-GPU: Tesla M40 (12.0 GB)
+GPU: CuPy not installed
 Surrogates: 10,000 per window
 
 ## Does appending OOS data strengthen or weaken significance?
 
 | Window | p_global | σ_surrogate | peak lag |
 |---|---|---|---|
-| In-sample (1976–2019) | 0.0394 | 2.06 | -125 d |
-| Out-of-sample (2020–2025) | N/A | N/A | None d |
-| Combined (1976–2025) | 0.0391 | 2.06 | -125 d |
+| In-sample (1976–2019) | 0.0010 | 3.29 | -125 d |
+| Out-of-sample (2020–2025) | 0.1053 | 1.62 | 125 d |
+| Combined (1976–2025) | 0.0102 | 2.57 | -125 d |
 
 ## Sinusoidal envelope fit
 
-BF = 27.45: strong evidence for sinusoidal envelope
+BF = 0.75 < 1: evidence FAVOURS constant model (no envelope)
 
-Best-fit period: **9.95 years** (constrained to [9, 13] years)
+Best-fit period: **13.00 years** (constrained to [9, 13] years)
 
 | Parameter | Value |
 |---|---|
-| Period P | 9.95 yr |
-| Amplitude A | 0.1470 |
-| Phase φ | 4.41 rad |
-| Baseline μ | 0.0481 |
-| Model B BIC | -153.76 |
-| Model A BIC | -147.14 |
-| ΔBIC (A−B) | 6.62 |
-| Bayes factor (BF) | 27.451 |
+| Period P | 13.00 yr |
+| Amplitude A | 0.0473 |
+| Phase φ | 3.43 rad |
+| Baseline μ | 0.0211 |
+| Model B BIC | -240.09 |
+| Model A BIC | -240.66 |
+| ΔBIC (A−B) | -0.57 |
+| Bayes factor (BF) | 0.752 |
 
 ## Station roster comparison (OOS window)
 

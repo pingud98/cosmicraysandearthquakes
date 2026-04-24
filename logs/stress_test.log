@@ -1,0 +1,90 @@
+2026-04-21T12:01:31 INFO     crq.stress_test — Stress test  |  git=unknown  seed=42
+2026-04-21T12:01:31 INFO     crq.stress_test — Study window: 1976-01-01 – 2019-12-31
+2026-04-21T12:01:31 INFO     crq.stress_test — Surrogates: 10000  method: both  n_jobs: -1
+2026-04-21T12:01:31 INFO     crq.stress_test — Loading CR index …
+2026-04-21T12:01:31 INFO     crq.homola — station AATA    valid_days=  337  coverage=  2.1%  mean=3756.2
+2026-04-21T12:01:32 INFO     crq.homola — station AATB    valid_days=15051  coverage= 93.7%  mean=1383.0
+2026-04-21T12:01:32 INFO     crq.homola — station APTY    valid_days= 7119  coverage= 44.3%  mean=171.9
+2026-04-21T12:01:32 INFO     crq.homola — station ARNM    valid_days= 1544  coverage=  9.6%  mean=641.2
+2026-04-21T12:01:32 INFO     crq.homola — station ATHN    valid_days= 6747  coverage= 42.0%  mean=55.3
+2026-04-21T12:01:32 INFO     crq.homola — station BKSN    valid_days= 3722  coverage= 23.2%  mean=115.7
+2026-04-21T12:01:32 INFO     crq.homola — station CALM    valid_days= 2056  coverage= 12.8%  mean=72.4
+2026-04-21T12:01:33 INFO     crq.homola — station DJON    valid_days= 2279  coverage= 14.2%  mean=141.0
+2026-04-21T12:01:33 INFO     crq.homola — station DOMB    valid_days= 1697  coverage= 10.6%  mean=5.5
+2026-04-21T12:01:33 INFO     crq.homola — station DOMC    valid_days= 1774  coverage= 11.0%  mean=19.8
+2026-04-21T12:01:33 INFO     crq.homola — station DRBS    valid_days=15146  coverage= 94.2%  mean=107.4
+2026-04-21T12:01:33 INFO     crq.homola — station FSMT    valid_days= 6985  coverage= 43.5%  mean=212.1
+2026-04-21T12:01:34 INFO     crq.homola — station HRMS    valid_days=15682  coverage= 97.6%  mean=118.2
+2026-04-21T12:01:34 INFO     crq.homola — station INVK    valid_days= 7162  coverage= 44.6%  mean=188.9
+2026-04-21T12:01:35 INFO     crq.homola — station IRK2    valid_days= 1750  coverage= 10.9%  mean=287.6
+2026-04-21T12:01:35 INFO     crq.homola — station IRK3    valid_days= 1133  coverage=  7.0%  mean=202.7
+2026-04-21T12:01:35 INFO     crq.homola — station IRKT    valid_days= 1487  coverage=  9.3%  mean=217.1
+2026-04-21T12:01:35 INFO     crq.homola — station JBGO    valid_days= 1198  coverage=  7.5%  mean=277.4
+2026-04-21T12:01:35 INFO     crq.homola — station JUNG    valid_days= 6563  coverage= 40.8%  mean=184.4
+2026-04-21T12:01:35 INFO     crq.homola — station JUNG1   valid_days= 3998  coverage= 24.9%  mean=379.8
+2026-04-21T12:01:36 INFO     crq.homola — station KERG    valid_days=15801  coverage= 98.3%  mean=214.2
+2026-04-21T12:01:36 INFO     crq.homola — station KIEL    valid_days=13954  coverage= 86.8%  mean=165.8
+2026-04-21T12:01:36 INFO     crq.homola — station KIEL2   valid_days= 2942  coverage= 18.3%  mean=175.1
+2026-04-21T12:01:36 INFO     crq.homola — station LMKS    valid_days=13909  coverage= 86.5%  mean=455.4
+2026-04-21T12:01:37 INFO     crq.homola — station MCRL    valid_days= 3656  coverage= 22.7%  mean=52.2
+2026-04-21T12:01:37 INFO     crq.homola — station MGDN    valid_days=13518  coverage= 84.1%  mean=147.2
+2026-04-21T12:01:37 INFO     crq.homola — station MOSC    valid_days=15994  coverage= 99.5%  mean=191.1
+2026-04-21T12:01:38 INFO     crq.homola — station MRNY    valid_days= 4651  coverage= 28.9%  mean=122.8
+2026-04-21T12:01:38 INFO     crq.homola — station MXCO    valid_days=10469  coverage= 65.1%  mean=219.4
+2026-04-21T12:01:38 INFO     crq.homola — station NAIN    valid_days= 6858  coverage= 42.7%  mean=211.0
+2026-04-21T12:01:38 INFO     crq.homola — station NANM    valid_days= 8241  coverage= 51.3%  mean=469.0
+2026-04-21T12:01:39 INFO     crq.homola — station NEWK    valid_days=15941  coverage= 99.2%  mean=94.0
+2026-04-21T12:01:39 INFO     crq.homola — station NRLK    valid_days=  852  coverage=  5.3%  mean=153.3
+2026-04-21T12:01:39 INFO     crq.homola — station OULU    valid_days=16008  coverage= 99.6%  mean=102.5
+2026-04-21T12:01:40 INFO     crq.homola — station PSNM    valid_days= 4357  coverage= 27.1%  mean=614.8
+2026-04-21T12:01:40 INFO     crq.homola — station PTFM    valid_days=10662  coverage= 66.3%  mean=56.2
+2026-04-21T12:01:40 INFO     crq.homola — station PWNK    valid_days= 6359  coverage= 39.6%  mean=211.2
+2026-04-21T12:01:40 INFO     crq.homola — station ROME    valid_days=10641  coverage= 66.2%  mean=142.4
+2026-04-21T12:01:41 INFO     crq.homola — station SNAE    valid_days=14043  coverage= 87.4%  mean=160.7
+2026-04-21T12:01:41 INFO     crq.homola — station SOPB    valid_days= 5076  coverage= 31.6%  mean=126.0
+2026-04-21T12:01:41 INFO     crq.homola — station SOPO    valid_days=13999  coverage= 87.1%  mean=289.5
+2026-04-21T12:01:42 INFO     crq.homola — station TERA    valid_days=12610  coverage= 78.5%  mean=111.9
+2026-04-21T12:01:42 INFO     crq.homola — station THUL    valid_days=15227  coverage= 94.7%  mean=119.4
+2026-04-21T12:01:42 INFO     crq.homola — station TSMB    valid_days=14005  coverage= 87.1%  mean=324.4
+2026-04-21T12:01:42 INFO     crq.homola — Loaded 44 stations with valid data.
+2026-04-21T12:01:42 INFO     crq.homola — CR index: 3215 5-day bins, 3215 non-NaN (100.0%)
+2026-04-21T12:01:42 INFO     crq.stress_test — Loading seismic metric …
+2026-04-21T12:01:46 INFO     crq.homola — Seismic: 409763 events M≥4.0 in 1976-01-01–2019-12-31
+2026-04-21T12:01:46 INFO     crq.homola — Seismic metric: 3215 bins, 100.0% non-zero
+2026-04-21T12:01:49 INFO     crq.stress_test — ρ₁(CR)=0.6701  ρ₁(seismic)=0.6969  N_eff=1169  (of 3215 bins)
+2026-04-21T12:01:49 INFO     crq.stress_test — τ=+15d: r=0.30988  naive=18.0σ  Bretherton=10.9σ
+2026-04-21T12:01:49 INFO     crq.stress_test — Peak:   r=0.46910  lag=-525 d  naive=28.3σ  Bretherton=17.0σ
+2026-04-21T12:01:49 INFO     crq.stress_test — Running phase-randomised surrogate test …
+2026-04-21T12:01:49 INFO     crq.stats.surrogates — Surrogate test (phase × 10000): observed peak |r| = 0.4691 at lag bin -105
+2026-04-21T12:01:49 INFO     crq.stats.surrogates — Dispatching 113 batches (batch_size=89) across all workers …
+2026-04-21T12:02:10 INFO     crq.stats.surrogates — p_global = 0.0000  (3.89σ equiv.)  |  0 / 10000 surrogates exceeded peak
+2026-04-21T12:02:10 INFO     crq.stress_test — Phase: p_global=0.0000 (3.89σ)  p(+15d)=0.0630
+2026-04-21T12:02:10 INFO     crq.stress_test — Running IAAFT surrogate test …
+2026-04-21T12:02:10 INFO     crq.stats.surrogates — Surrogate test (iaaft × 10000): observed peak |r| = 0.4691 at lag bin -105
+2026-04-21T12:02:10 INFO     crq.stats.surrogates — Dispatching 113 batches (batch_size=89) across all workers …
+2026-04-21T12:03:21 INFO     crq.stats.surrogates — p_global = 1.0000  (0.00σ equiv.)  |  10000 / 10000 surrogates exceeded peak
+2026-04-21T12:03:21 INFO     crq.stress_test — IAAFT: p_global=1.0000 (0.00σ)  p(+15d)=1.0000
+2026-04-21T12:03:23 INFO     crq.stress_test — Saved: /root/cosmicrayquake/results/figs/stress_test.png
+2026-04-21T12:03:23 INFO     crq.stress_test — Saved: /root/cosmicrayquake/results/stress_test_report.md
+2026-04-21T12:03:23 INFO     crq.stress_test — Saved: /root/cosmicrayquake/results/stress_test_results.json
+
+======================================================================
+  STRESS TEST SUMMARY
+======================================================================
+  Study: 1976-01-01 – 2019-12-31  |  44 stations  |  3,215 bins
+  ρ₁(CR)=0.670  ρ₁(seismic)=0.697  N_eff=1169 (36.4% of N)
+
+  τ = +15 d  (Homola claim):
+    r = +0.30988
+    Naive:       18.0σ  (p=1.67e-72)
+    Bretherton:  10.9σ  (p=1.95e-27)
+    Phase surr:  1.86σ  (p=0.0630)
+    IAAFT surr:  0.00σ  (p=1.0000)
+
+  Peak (global, any lag):
+    r = +0.46910  at τ = -525 d
+    Naive:       28.3σ  (p=1.19e-175)
+    Bretherton:  17.0σ  (p=5.18e-65)
+    Phase surr (global):  3.89σ  (p=0.0000)
+    IAAFT surr (global):  0.00σ  (p=1.0000)
+======================================================================

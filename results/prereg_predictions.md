@@ -1,7 +1,7 @@
 # Pre-Registered Predictions — Out-of-Sample CR–Seismic Validation
 
-**Written:** 2026-04-23T22:56:22Z
-**Git SHA:** unknown
+**Written:** 2026-04-24T12:05:55Z
+**Git SHA:** 817d7ba
 **OOS window:** 2020-01-01 → 2025-04-29
 **Surrogates:** 100,000 phase-randomisation
 

@@ -1,10 +1,10 @@
 # Out-of-Sample Validation Report — Homola et al. 2023
 
-Generated: 2026-04-23T22:56:38Z
-Git SHA: unknown
+Generated: 2026-04-24T12:06:46Z
+Git SHA: 817d7ba
 OOS window: 2020-01-01 → 2025-04-29
-Analysis run date: 2026-04-23
-Data availability check: unknown
+Analysis run date: 2026-04-24
+Data availability check: 2026-04-22
 
 ## Overall verdict
 
@@ -26,13 +26,13 @@ Data availability check: unknown
 
 | Metric | OOS value | In-sample baseline |
 |---|---|---|
-| r(τ = +15 d) raw | +0.0446 | +0.3099 (solar-cycle confounded) |
-| r(τ = +15 d) HP-detrended | +0.0267 | +0.0411 |
-| Surrogate 95th pct at τ=+15 d | 0.1356 | (not computed in-sample at this lag) |
-| p_global (phase surrogates) | 0.9940 | 1.000 (in-sample raw, not significant) |
-| σ_surrogate | 0.01 | n/a |
-| Dominant peak lag | +135 d | −525 d |
-| Dominant peak \|r\| | 0.1104 | 0.469 |
+| r(τ = +15 d) raw | +0.0304 | +0.3099 (solar-cycle confounded) |
+| r(τ = +15 d) HP-detrended | +0.0232 | +0.0411 |
+| Surrogate 95th pct at τ=+15 d | 0.1012 | (not computed in-sample at this lag) |
+| p_global (phase surrogates) | 0.1002 | 1.000 (in-sample raw, not significant) |
+| σ_surrogate | 1.64 | n/a |
+| Dominant peak lag | +125 d | −525 d |
+| Dominant peak \|r\| | 0.1358 | 0.469 |
 | BH-significant pairs (geo) | 0 | 455 (in-sample) |
 | Expected FP (geo, BH q=0.05) | 0.0 | 351.9 (in-sample) |
 | Surrogate count | 100,000 | 10,000 (in-sample) |
@@ -56,7 +56,7 @@ less than one full 11-year solar cycle.  This has two implications:
 
 - Pre-registration file: `results/prereg_predictions.md` (timestamps confirm
   it was written before any OOS analysis was run)
-- GPU: Tesla M40 (12.0 GB)
+- GPU: CuPy not installed
 - Surrogates: phase-randomisation (100,000)
 - Lag range: ±200 days
 
