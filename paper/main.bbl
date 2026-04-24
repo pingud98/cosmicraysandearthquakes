@@ -1,0 +1,129 @@
+\begin{thebibliography}{17}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Aplin(2006)]{Aplin2005}
+Karen~L. Aplin.
+\newblock Atmospheric electrification in the solar system.
+\newblock \emph{Surveys in Geophysics}, 27\penalty0 (1):\penalty0 63--108,
+  2006.
+\newblock \doi{10.1007/s10712-005-0642-9}.
+
+\bibitem[Benjamini and Hochberg(1995)]{Benjamini1995}
+Yoav Benjamini and Yosef Hochberg.
+\newblock Controlling the false discovery rate: a practical and powerful
+  approach to multiple testing.
+\newblock \emph{Journal of the Royal Statistical Society: Series B},
+  57\penalty0 (1):\penalty0 289--300, 1995.
+\newblock \doi{10.1111/j.2517-6161.1995.tb02031.x}.
+
+\bibitem[Bretherton et~al.(1999)Bretherton, Widmann, Dymnikov, Wallace, and
+  Blade]{Bretherton1999}
+Christopher~S. Bretherton, Martin Widmann, Valentin~P. Dymnikov, John~M.
+  Wallace, and Ileana Blade.
+\newblock The effective number of spatial degrees of freedom of a time-varying
+  field.
+\newblock \emph{Journal of Climate}, 12\penalty0 (7):\penalty0 1990--2009,
+  1999.
+\newblock \doi{10.1175/1520-0442(1999)012<1990:TENOSD>2.0.CO;2}.
+
+\bibitem[Cleveland et~al.(1990)Cleveland, Cleveland, McRae, and
+  Terpenning]{Cleveland1990}
+Robert~B. Cleveland, William~S. Cleveland, Jean~E. McRae, and Irma Terpenning.
+\newblock {STL}: A seasonal-trend decomposition procedure based on {LOESS}.
+\newblock \emph{Journal of Official Statistics}, 6\penalty0 (1):\penalty0
+  3--73, 1990.
+
+\bibitem[Hodrick and Prescott(1997)]{HP1997}
+Robert~J. Hodrick and Edward~C. Prescott.
+\newblock Postwar {U.S.} business cycles: an empirical investigation.
+\newblock \emph{Journal of Money, Credit and Banking}, 29\penalty0
+  (1):\penalty0 1--16, 1997.
+\newblock \doi{10.2307/2953682}.
+
+\bibitem[Homola et~al.(2023)]{Homola2023}
+Piotr Homola et~al.
+\newblock Indication of correlation between cosmic-ray flux and global
+  seismicity.
+\newblock \emph{Remote Sensing}, 15\penalty0 (1):\penalty0 200, 2023.
+\newblock \doi{10.3390/rs15010200}.
+
+\bibitem[Jeffreys(1961)]{Jeffreys1961}
+Harold Jeffreys.
+\newblock \emph{Theory of Probability}.
+\newblock Oxford University Press, 3rd edition, 1961.
+
+\bibitem[Odintsov et~al.(2006)Odintsov, Boyarchuk, Georgieva, Kirov, and
+  Atanasov]{Odintsov2006}
+Stanislav Odintsov, Kirill Boyarchuk, Katya Georgieva, Boian Kirov, and Dimitar
+  Atanasov.
+\newblock Long-period trends in global seismic and geomagnetic activity and
+  their relation to solar activity.
+\newblock \emph{Physics and Chemistry of the Earth}, 31\penalty0
+  (1--3):\penalty0 88--93, 2006.
+\newblock \doi{10.1016/j.pce.2005.03.004}.
+
+\bibitem[Potgieter(2013)]{Potgieter2013}
+Marius~S. Potgieter.
+\newblock Solar modulation of cosmic rays.
+\newblock \emph{Living Reviews in Solar Physics}, 10\penalty0 (1):\penalty0 3,
+  2013.
+\newblock \doi{10.12942/lrsp-2013-3}.
+
+\bibitem[Pulinets and Boyarchuk(2004)]{Pulinets2004}
+Sergey Pulinets and Kirill Boyarchuk.
+\newblock Ionospheric precursors of earthquakes.
+\newblock \emph{Springer}, 2004.
+
+\bibitem[Schreiber and Schmitz(2000)]{Schreiber2000}
+Thomas Schreiber and Andreas Schmitz.
+\newblock Surrogate time series.
+\newblock \emph{Physica D: Nonlinear Phenomena}, 142\penalty0 (3--4):\penalty0
+  346--382, 2000.
+\newblock \doi{10.1016/S0167-2789(00)00043-9}.
+
+\bibitem[{SILSO World Data Center}(2024)]{SIDC2024}
+{SILSO World Data Center}.
+\newblock The international sunspot number.
+\newblock Royal Observatory of Belgium, Brussels.
+  \url{https://www.sidc.be/silso/datafiles}, 2024.
+
+\bibitem[Stoupel(1990)]{Stoupel1990}
+Eliyahu Stoupel.
+\newblock Relationship between solar and seismic activity.
+\newblock \emph{International Journal of Biometeorology}, 34\penalty0
+  (4):\penalty0 231--235, 1990.
+\newblock \doi{10.1007/BF01049646}.
+
+\bibitem[Tavares and Azevedo(2011)]{Tavares2011}
+Mario Tavares and Angelo Azevedo.
+\newblock Influences of solar cycles on earthquakes.
+\newblock \emph{Pattern Recognition in Physics}, 1\penalty0 (1):\penalty0
+  1--11, 2011.
+
+\bibitem[Theiler et~al.(1992)Theiler, Eubank, Longtin, Galdrikian, and
+  Farmer]{Theiler1992}
+James Theiler, Stephen Eubank, Andr{\'e} Longtin, Bryan Galdrikian, and
+  J.~Doyne Farmer.
+\newblock Testing for nonlinearity in time series: the method of surrogate
+  data.
+\newblock \emph{Physica D: Nonlinear Phenomena}, 58\penalty0 (1--4):\penalty0
+  77--94, 1992.
+\newblock \doi{10.1016/0167-2789(92)90102-S}.
+
+\bibitem[Urata and Tanimoto(2018)]{Urata2018}
+Naoyuki Urata and Toshiro Tanimoto.
+\newblock Correlation between cosmic rays and seismicity: a case study in
+  {Japan}.
+\newblock \emph{Earth, Planets and Space}, 70\penalty0 (1):\penalty0 55, 2018.
+\newblock \doi{10.1186/s40623-018-0826-5}.
+
+\bibitem[{USGS Earthquake Hazards Program}(2024)]{USGS2024}
+{USGS Earthquake Hazards Program}.
+\newblock Earthquake catalogue via {FDSN} web service.
+\newblock \url{https://earthquake.usgs.gov/fdsnws/event/1/}, 2024.
+
+\end{thebibliography}

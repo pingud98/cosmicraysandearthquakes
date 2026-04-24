@@ -1,0 +1,30 @@
+\contentsline {section}{\numberline {1}Introduction}{4}{section.1}%
+\contentsline {section}{\numberline {2}Data}{5}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Cosmic-Ray Flux: NMDB Neutron Monitors}{5}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Seismic Activity: USGS Earthquake Catalogue}{5}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Solar Activity: SIDC Sunspot Number}{5}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Methods}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Cross-Correlation at Lag $\tau $}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Effective Degrees of Freedom}{6}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Surrogate Significance Tests}{6}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Phase Randomisation}{6}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}IAAFT Surrogates}{6}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}Global $p$-Value}{6}{subsubsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.4}GPU Acceleration}{7}{subsubsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.4}Solar-Cycle Detrending}{7}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Geographic Localisation Scan}{7}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Pre-Registered Out-of-Sample Validation}{8}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}Combined Timeseries: Sinusoidal Envelope Fit}{8}{subsection.3.7}%
+\contentsline {section}{\numberline {4}Results}{9}{section.4}%
+\contentsline {subsection}{\numberline {4.1}In-Sample Replication (1976--2019)}{9}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}IAAFT Surrogate Test}{9}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Effect of Solar-Cycle Detrending}{9}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Geographic Localisation}{13}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Pre-Registered Out-of-Sample Validation (2020--2025)}{13}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Combined 1976--2025 Analysis: Sinusoidal Modulation}{14}{subsection.4.6}%
+\contentsline {section}{\numberline {5}Discussion}{16}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Why Does the Raw Correlation Appear So Strong?}{16}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Physical Plausibility of the Claimed Mechanism}{16}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Comparison with Prior Replication Attempts}{17}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Limitations}{17}{subsection.5.4}%
+\contentsline {section}{\numberline {6}Conclusions}{17}{section.6}%

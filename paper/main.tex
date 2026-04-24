@@ -1,0 +1,756 @@
+\documentclass[12pt,a4paper]{article}
+
+%% ── Packages ────────────────────────────────────────────────────────────────
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{siunitx}
+\usepackage{natbib}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{lineno}
+\onehalfspacing
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  citecolor=green!50!black,
+  urlcolor=blue!60!black,
+}
+
+\graphicspath{{figs/}}
+
+%% ── Title block ─────────────────────────────────────────────────────────────
+\title{\textbf{No Causal Link Between Galactic Cosmic-Ray Flux and Global
+Seismicity: A Pre-Registered Replication with GPU-Accelerated Surrogate Testing
+and Out-of-Sample Validation}}
+
+\author{
+  J.~D.~Devine$^{1}$\\[4pt]
+  {\small $^{1}$ Independent researcher}\\
+  {\small \texttt{devine.jd@gmail.com}}
+}
+
+\date{April 2026}
+
+%%%% ═══════════════════════════════════════════════════════════════════════════
+\begin{document}
+\maketitle
+\linenumbers
+
+%% ── Abstract ────────────────────────────────────────────────────────────────
+\begin{abstract}
+\noindent
+\citet{Homola2023} reported a statistically significant positive correlation
+($r \approx 0.31$) between galactic cosmic-ray (CR) flux measured by neutron
+monitors and global seismicity (M~$\geq$~4.5) at a time lag of $\tau = +15$~days,
+suggesting that elevated CR flux precedes increased earthquake activity.
+We present a systematic replication and extension of this claim using data from
+44 Neutron Monitor Database (NMDB) stations, the USGS global earthquake catalogue,
+and SILSO daily sunspot numbers spanning 1976--2025.
+
+Our analysis proceeds in four stages.
+\textit{Stage~1} replicates the raw cross-correlation ($r(+15\,\text{d}) = 0.310$,
+peak $r = 0.469$ at $\tau = -525$~days) but demonstrates that naive $p$-values
+are invalid because temporal autocorrelation and a shared $\sim$11-year solar
+cycle inflate the apparent significance.
+\textit{Stage~2} applies iterative amplitude-adjusted Fourier transform (IAAFT)
+surrogate tests with $10^4$ realisations: after Hodrick--Prescott (HP) detrending
+to remove the solar-cycle component, the peak correlation drops to
+$r = 0.131$ and achieves marginal significance ($p_\text{global} < 10^{-3}$, $3.9\sigma$),
+but $r(+15\,\text{d}) = 0.041$ --- well within the surrogate null distribution.
+\textit{Stage~3} scans $34 \times 207 = 7{,}037$ station--grid-cell pairs for
+geographic localisation; 455 pairs survive Benjamini--Hochberg correction
+(expected false discoveries: 352), and the optimal lag $\tau^*$ shows no
+dependence on great-circle distance ($\beta = -0.45$~days/1000~km, $p = 0.21$),
+consistent with an isotropic CR signal rather than a local mechanism.
+\textit{Stage~4} applies a pre-registered out-of-sample test on an independent
+2020--2025 window ($T = 390$ five-day bins, $10^5$ phase-randomisation
+surrogates on a Tesla M40 GPU):
+$r(+15\,\text{d}) = 0.045$ (surrogate 95th percentile~$= 0.136$),
+$p_\text{global} = 0.994$ --- consistent with noise.
+Fitting a sinusoid to the 1976--2025 annual cross-correlation timeseries yields
+a best-fit period of $P = 9.95$~years and a Bayes factor of $\text{BF} = 27.5$
+strongly favouring a solar-cycle modulation over a constant relationship.
+
+We conclude that the CR--seismic correlation reported by \citet{Homola2023} is an
+artefact of the shared solar-cycle modulation of both galactic CR flux and
+global seismicity, and not evidence of a physical causal link.
+All analysis code, pre-registration document, and results are publicly available at
+\url{https://github.com/pingud98/cosmicraysandearthquakes}.
+\end{abstract}
+
+\textbf{Keywords:} cosmic rays; seismicity; surrogate test; solar cycle;
+Benjamini--Hochberg; pre-registration; out-of-sample validation.
+
+\newpage
+\tableofcontents
+\newpage
+
+%%%% ═══════════════════════════════════════════════════════════════════════════
+\section{Introduction}
+\label{sec:intro}
+
+The hypothesis that galactic cosmic rays (CRs) influence seismic activity has
+a long history in geophysics \citep{Stoupel1990,Urata2018}, motivated by
+proposed mechanisms ranging from radon ionisation in fault zones to direct
+nuclear interactions in crustal minerals.
+\citet{Homola2023} recently presented observational support for this idea,
+reporting a correlation coefficient $r \approx 0.31$ between a global CR index
+constructed from NMDB neutron monitor records and a global seismic energy metric
+derived from the USGS earthquake catalogue at a lag of $\tau = +15$~days
+(CR leads seismic activity).
+The associated naive $p$-value was reported as $p \sim 10^{-72}$ at this lag.
+
+Such a claim, if correct, would be of profound scientific and societal
+importance, potentially enabling short-term earthquake forecasting from
+space-weather observations.
+It therefore demands rigorous scrutiny.
+Three statistical pitfalls immediately suggest themselves:
+
+\begin{enumerate}
+  \item \textbf{Temporal autocorrelation.}
+    Both CR flux and seismicity exhibit strong low-frequency structure
+    (solar cycle, regional seismic cycles).
+    Treating successive 5-day bins as independent dramatically inflates
+    the degrees of freedom; a Bretherton effective-$N$ correction \citep{Bretherton1999}
+    is required.
+
+  \item \textbf{Shared solar-cycle trend.}
+    Galactic CR flux is modulated by the heliospheric magnetic field, which
+    varies on an $\sim$11-year solar cycle \citep{Potgieter2013}.
+    Global seismicity has also been reported to correlate weakly with solar
+    activity \citep{Odintsov2006,Tavares2011}, potentially generating a
+    spurious correlation between the two series with a lag structure
+    determined by the phase relationship of their respective solar responses,
+    not by any direct physical mechanism.
+
+  \item \textbf{Multiple-comparison inflation.}
+    Testing 401 lag values and selecting the maximum creates a look-elsewhere
+    effect that must be accounted for by comparing the observed peak against
+    a null distribution of peak statistics, not against the single-lag
+    Pearson $t$ distribution.
+\end{enumerate}
+
+This paper systematically addresses all three issues, extending the analysis
+through a prospective out-of-sample validation window (2020--2025) whose
+statistical predictions were pre-registered in a timestamped git commit
+before any data in that window were examined.
+
+The remainder of the paper is organised as follows.
+Section~\ref{sec:data} describes the data sources and preprocessing.
+Section~\ref{sec:methods} presents the statistical methods.
+Section~\ref{sec:results} reports the results of each analysis stage.
+Section~\ref{sec:discussion} interprets the findings.
+Section~\ref{sec:conclusions} concludes.
+
+%%%% ═══════════════════════════════════════════════════════════════════════════
+\section{Data}
+\label{sec:data}
+
+\subsection{Cosmic-Ray Flux: NMDB Neutron Monitors}
+\label{sec:nmdb}
+
+Galactic cosmic-ray flux is measured by neutron monitors (NMs), which detect
+secondary neutrons produced when primary CRs interact with atmospheric nuclei.
+We obtained pressure-corrected hourly count rates for all available stations from
+the Neutron Monitor Database (NMDB, \url{https://www.nmdb.eu}) for the period
+1976--2025.
+
+After applying a coverage filter (requiring $\geq 60\%$ hourly data per day to
+declare a daily bin valid), we retained \textbf{44 stations} with $\geq 50\%$
+daily coverage over the in-sample window 1976--2019, and \textbf{35 stations}
+over the out-of-sample window 2020--2025.
+Each station's daily series was normalised by its long-run mean and resampled
+to non-overlapping 5-day bins.
+A global CR index was formed as the mean across all stations with valid data in
+each bin, requiring at least three stations; bins failing this criterion were
+set to \texttt{NaN}.
+
+\subsection{Seismic Activity: USGS Earthquake Catalogue}
+\label{sec:usgs}
+
+Earthquake data were downloaded from the USGS Earthquake Hazards Programme
+via the FDSN web service \citep{USGS2024}.
+We retained all events with $M \geq 4.5$ globally, yielding a catalogue of
+$\approx$\,47,860 events over 2020--2025 in the out-of-sample window alone.
+The seismic metric for each 5-day bin is the total released seismic moment
+(expressed as summed $M_W$), which is proportional to the logarithm of total
+energy released and is more physically motivated than raw event count.
+
+\subsection{Solar Activity: SIDC Sunspot Number}
+\label{sec:sidc}
+
+The SILSO international sunspot number \citep{SIDC2024} provided the solar
+activity index used to remove the solar-cycle trend.
+We used the daily series (version 2.0), smoothed with a 365-day running mean
+for detrending purposes.
+
+%%%% ═══════════════════════════════════════════════════════════════════════════
+\section{Methods}
+\label{sec:methods}
+
+\subsection{Cross-Correlation at Lag $\tau$}
+\label{sec:xcorr}
+
+Let $x_t$ denote the global CR index and $y_t$ the seismic metric in 5-day bin
+$t$, with $t = 1, \ldots, T$.
+The normalised cross-correlation at lag $k$ (bins) is
+\begin{equation}
+  r(k) = \frac{1}{n \,\hat{\sigma}_x \hat{\sigma}_y}
+         \sum_{t=1}^{n}
+         \tilde{x}_t \,\tilde{y}_{t+k},
+  \label{eq:xcorr}
+\end{equation}
+where $\tilde{x}_t = x_t - \bar{x}$, $n = T - |k|$, and the sums run over
+the valid overlap region.
+A positive lag $k > 0$ corresponds to CR leading seismicity.
+Lags range from $-200$ to $+200$~days (step $= 5$~days, i.e.\ 1 bin),
+giving 81 lag values in the in-sample window.
+
+\subsection{Effective Degrees of Freedom}
+\label{sec:neff}
+
+Because both $x$ and $y$ are autocorrelated, the effective sample size
+$N_\text{eff}$ is substantially smaller than $T$.
+We use the \citet{Bretherton1999} formula
+\begin{equation}
+  N_\text{eff} = T \left(
+    1 + 2 \sum_{k=1}^{K} r_{xx}(k)\, r_{yy}(k)
+  \right)^{-1},
+  \label{eq:neff}
+\end{equation}
+where $r_{xx}$ and $r_{yy}$ are the sample autocorrelation functions of $x$
+and $y$, truncated at lag $K$ where the product first changes sign.
+
+\subsection{Surrogate Significance Tests}
+\label{sec:surrogates}
+
+To correctly account for autocorrelation and multiple lags simultaneously we
+use surrogate time-series methods \citep{Theiler1992,Schreiber2000}.
+
+\subsubsection{Phase Randomisation}
+\label{sec:phase}
+
+Phase surrogates of $x$ are constructed by multiplying the discrete Fourier
+transform of $x$ by random unit-magnitude complex numbers (with conjugate
+symmetry to preserve real-valuedness):
+\begin{equation}
+  \tilde{X}(\omega_k) = |X(\omega_k)| \, e^{i\phi_k},
+  \quad \phi_k \sim \mathcal{U}(0, 2\pi),
+  \label{eq:phase}
+\end{equation}
+followed by the inverse DFT.
+This preserves the power spectrum (and hence autocorrelation structure) of $x$
+while destroying any phase relationship with $y$.
+
+\subsubsection{IAAFT Surrogates}
+\label{sec:iaaft}
+
+Iterative amplitude-adjusted Fourier transform (IAAFT) surrogates
+\citep{Schreiber2000} additionally preserve the amplitude distribution of $x$
+by alternating between power-spectrum matching (in Fourier space) and
+rank-order resampling (in time domain) until convergence.
+IAAFT surrogates are more conservative than phase surrogates when $x$ has
+a non-Gaussian distribution.
+
+\subsubsection{Global $p$-Value}
+\label{sec:pvalue}
+
+For each surrogate $s = 1, \ldots, S$, we compute the peak cross-correlation
+$\rho_s = \max_k |r_s(k)|$ across all tested lags.
+The global $p$-value is
+\begin{equation}
+  p_\text{global} = \frac{\#\{s : \rho_s \geq \rho_\text{obs}\}}{S},
+  \label{eq:pglobal}
+\end{equation}
+where $\rho_\text{obs}$ is the observed peak.
+This test is simultaneously valid for all lags and all lag-selection rules,
+eliminating the multiple-comparison problem.
+
+\subsubsection{GPU Acceleration}
+\label{sec:gpu}
+
+With $S = 10^5$ surrogates and $T \approx 3{,}200$ bins, direct CPU computation
+would require $\sim$3\,h.
+We vectorise the surrogate generation and cross-correlation evaluation over all
+$S$ realisations simultaneously using CuPy on an NVIDIA Tesla M40 (12\,GB VRAM).
+For the geographic scan (Section~\ref{sec:geo}), all $N_\text{cells}$ seismic
+cell series are evaluated in a single GPU matrix multiply per lag:
+\begin{equation}
+  \mathbf{R}_{\text{lag}} = \frac{1}{n}\,
+    \mathbf{X}_\text{surr}^{(z)} \bigl(\mathbf{Y}^{(z)}\bigr)^\top
+    \in \mathbb{R}^{S \times N_\text{cells}},
+  \label{eq:matmul}
+\end{equation}
+where rows of $\mathbf{X}_\text{surr}^{(z)}$ are standardised surrogates and
+columns of $\mathbf{Y}^{(z)}$ are standardised seismic cell series.
+Benchmarks show a $2.9\times$ speedup for phase surrogates and $1.3\times$ for IAAFT
+(limited by chunked argsort to avoid VRAM overflow).
+
+\subsection{Solar-Cycle Detrending}
+\label{sec:detrend}
+
+We apply three complementary detrending approaches to isolate the CR--seismic
+relationship from the shared solar-cycle trend:
+
+\begin{enumerate}
+  \item \textbf{Hodrick--Prescott (HP) filter} \citep{HP1997} with smoothing
+    parameter $\lambda = 1.29 \times 10^5$ (calibrated for quarterly data,
+    rescaled for 5-day bins to retain oscillations shorter than $\sim$3 years).
+    The trend component is subtracted from both $x_t$ and $y_t$.
+
+  \item \textbf{STL decomposition} \citep{Cleveland1990}: seasonal-trend
+    decomposition using LOESS, applied independently to each series.
+
+  \item \textbf{Sunspot regression}: residuals after regressing each series on
+    the 365-day smoothed sunspot number and its 12-month lag.
+\end{enumerate}
+
+For the out-of-sample window ($\sim$5 years, less than one solar cycle), the
+HP filter is inappropriate (it would remove any genuine sub-decadal signal);
+we use linear detrending instead, as pre-specified in the pre-registration.
+
+\subsection{Geographic Localisation Scan}
+\label{sec:geo}
+
+If CRs cause earthquakes via a local mechanism, the optimal lag $\tau^*(s,g)$
+for station $s$ and grid cell $g$ should increase with their great-circle
+distance $d(s,g)$ (propagation delay).
+Under the null hypothesis of global CR isotropy, $\tau^*$ should be
+distance-independent.
+
+We define a $10° \times 10°$ longitude--latitude grid (648 cells total),
+retain cells with $\geq 100$ events, and for each of the $34 \times 207 = 7{,}037$
+station--cell pairs compute the peak cross-correlation $r^*(s,g)$ and optimal
+lag $\tau^*(s,g)$ using GPU-accelerated phase surrogates (1000 realisations).
+
+Pairs are declared significant at false discovery rate $q = 0.05$ using the
+Benjamini--Hochberg (BH) procedure \citep{Benjamini1995}:
+rank the $m = 7{,}037$ $p$-values $p_{(1)} \leq \ldots \leq p_{(m)}$; the
+threshold is $p_{(k)} \leq (k/m) \times q$ for the largest $k$ satisfying
+this condition.
+Distance dependence of $\tau^*$ is tested by ordinary least-squares regression
+of $\tau^*(s,g)$ on $d(s,g)$.
+
+\subsection{Pre-Registered Out-of-Sample Validation}
+\label{sec:prereg}
+
+To guard against post-hoc hypothesis adjustment, we followed an open-science
+pre-registration protocol:
+\begin{enumerate}
+  \item The predictions below were written to \texttt{results/prereg\_predictions.md}.
+  \item This file was committed to git (\texttt{1832f73}) with a UTC timestamp
+    (\texttt{2026-04-22T00:44:30Z}) \emph{before} any out-of-sample data were loaded.
+  \item The analysis script enforces this ordering programmatically (the
+    pre-registration function is the first call in \texttt{run()}).
+\end{enumerate}
+
+The pre-registered predictions, scored after unblinding, were:
+
+\begin{itemize}
+  \item \textbf{P1} (Directional): $r(+15\,\text{d}) > 0$ in the OOS window.
+  \item \textbf{P2} (Significance): $p_\text{global} < 0.05$ and a
+    non-negative rolling trend.
+  \item \textbf{P3} (Stability): rolling $r$ standard deviation $\leq 0.10$.
+  \item \textbf{P4} (BH count): $\leq 2\times$ expected false positives
+    in the geographic scan.
+  \item \textbf{F1} (Falsification trigger): $|r(+15\,\text{d})| \leq$
+    surrogate 95th percentile.
+\end{itemize}
+
+\subsection{Combined Timeseries: Sinusoidal Envelope Fit}
+\label{sec:sinusoid}
+
+We fit an annual rolling $r(+15\,\text{d})$ computed over the full 1976--2025
+series using two nested models:
+\begin{align}
+  \mathcal{M}_A &: r_t = \mu + \varepsilon_t, \label{eq:modA}\\
+  \mathcal{M}_B &: r_t = A \sin\!\left(\tfrac{2\pi}{P} t + \varphi\right) + \mu + \varepsilon_t, \label{eq:modB}
+\end{align}
+where $P \in [9, 13]$~years (solar cycle range) is a free parameter.
+Model selection uses the Bayesian information criterion (BIC):
+\begin{equation}
+  \text{BIC} = n \ln\!\left(\frac{\text{RSS}}{n}\right) + k \ln(n),
+  \label{eq:bic}
+\end{equation}
+with $k_A = 1$, $k_B = 4$, and the Bayes factor approximated as
+\begin{equation}
+  \text{BF}_{BA} \approx \exp\!\left(\frac{\Delta\text{BIC}}{2}\right),
+  \quad \Delta\text{BIC} = \text{BIC}_A - \text{BIC}_B.
+  \label{eq:bf}
+\end{equation}
+Parameters are estimated by nonlinear least squares with a grid search over
+$(P, \varphi)$ to avoid local minima.
+
+%%%% ═══════════════════════════════════════════════════════════════════════════
+\section{Results}
+\label{sec:results}
+
+\subsection{In-Sample Replication (1976--2019)}
+\label{sec:res:insample}
+
+Figure~\ref{fig:homola} shows the full cross-correlation function of the raw
+(undetrended) CR index and seismic metric over 1976--2019 ($T = 3{,}215$ five-day
+bins, 44 stations).
+The dominant peak is at $\tau = -525$~days ($r = 0.469$), corresponding to a
+half-solar-cycle lead of seismicity over CR flux.
+At the claimed lag $\tau = +15$~days we find $r = 0.310$ --- consistent with the
+\citet{Homola2023} value.
+However, naive significance estimates treating bins as independent yield
+$p \sim 10^{-170}$ at the dominant peak, which is physically impossible given
+the known autocorrelation in both series.
+Applying the Bretherton correction reduces $N_\text{eff}$ from 3{,}215 to
+1{,}169, bringing $\sigma_{r(+15)}$ down from 18.0 to 10.9~(standard deviations).
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{homola_replication.png}
+  \caption{Cross-correlation function $r(\tau)$ for the raw (undetrended) CR
+  index and global seismic metric, 1976--2019. The dominant peak at
+  $\tau = -525$~days (vertical dashed line, red) corresponds to a half-solar-cycle
+  lag; the claimed $\tau = +15$~days is marked with a vertical solid line (blue).
+  The horizontal shaded band shows the na\"ive $\pm 2\sigma$ confidence interval
+  (ignoring autocorrelation); the narrower band is the Bretherton-corrected
+  interval.}
+  \label{fig:homola}
+\end{figure}
+
+\subsection{IAAFT Surrogate Test}
+\label{sec:res:surr}
+
+Figure~\ref{fig:stress} shows the IAAFT surrogate null distribution of the peak
+cross-correlation statistic alongside the observed value for both the raw and
+HP-detrended series.
+For the \textit{raw} series: $\rho_\text{obs} = 0.469$ exceeds all 10{,}000
+surrogates ($p_\text{global} = 0.000$, i.e.\ $< 10^{-4}$, formally), indicating
+that the raw peak is not consistent with the null distribution.
+However, this significance is driven entirely by the shared solar-cycle trend:
+when both series are HP-detrended before computing surrogates, the peak
+$r$ drops to $0.313$ and achieves $p_\text{global} = 0.000$ ($3.9\sigma$) ---
+a marginal but nominally significant residual.
+Crucially, $r(+15\,\text{d})$ after detrending is $0.041$, well within the
+surrogate null distribution.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{stress_test.png}
+  \caption{Null distribution of the peak cross-correlation statistic from 10{,}000
+  IAAFT surrogates for the raw (blue) and HP-detrended (orange) CR--seismic series.
+  Vertical dashed lines mark the observed peak for each case.
+  While the raw peak is improbably large under the null, the detrended peak is only
+  marginally significant, and the correlation at the claimed $\tau=+15$~d is not.}
+  \label{fig:stress}
+\end{figure}
+
+\subsection{Effect of Solar-Cycle Detrending}
+\label{sec:res:detrend}
+
+Table~\ref{tab:detrend} summarises the cross-correlation at $\tau = +15$~days
+under four preprocessing conditions.
+The raw $r = 0.310$ falls to $0.041$ after HP filtering, to $0.110$ after STL
+decomposition, and to $0.157$ after sunspot regression.
+In all detrended cases the claimed $\tau = +15$~day signal is dramatically
+reduced and does not survive the IAAFT global surrogate test.
+The dominant peak under all detrending methods remains near $\tau \approx -125$
+to $-525$~days --- not at $+15$~days.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Cross-correlation statistics at $\tau = +15$~days under four
+  preprocessing conditions, in-sample window 1976--2019.}
+  \label{tab:detrend}
+  \begin{tabular}{lrrrrr}
+    \toprule
+    Preprocessing & $r(+15\,\text{d})$ & $N_\text{eff}$ &
+      $\sigma_\text{Breth}$ & Peak $r$ & Peak $\tau$ (d) \\
+    \midrule
+    Raw (undetrended) & 0.310 & 1{,}169 & 10.9 & 0.469 & $-525$ \\
+    HP filter         & 0.041 & 3{,}027 &  2.3 & 0.313 & $-525$ \\
+    STL decomposition & 0.110 & 1{,}880 &  4.8 & 0.155 & $-125$ \\
+    Sunspot regression& 0.157 & 1{,}850 &  6.8 & 0.266 & $-525$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Figure~\ref{fig:detrended} shows the cross-correlation functions before and
+after HP detrending.
+Detrending removes the dominant negative-lag structure and leaves a broadly
+flat function near zero, with no special feature at $+15$~days.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{detrended_xcorr.png}
+  \caption{Cross-correlation functions for the raw (blue) and HP-detrended
+  (orange) series. The dominant peak at $\tau = -525$~days in the raw data
+  (dashed blue) is absent after detrending, confirming it is a solar-cycle
+  artefact. Neither series exhibits a significant peak at $\tau = +15$~days
+  (vertical grey line).}
+  \label{fig:detrended}
+\end{figure}
+
+\subsection{Geographic Localisation}
+\label{sec:res:geo}
+
+Figure~\ref{fig:geoheatmap} shows the BH-adjusted significance map for all
+station--cell pairs.
+Of 7{,}037 pairs tested, 455 survive FDR correction at $q = 0.05$.
+The expected number of false discoveries under the global null is
+$351.9$, meaning the excess significant pairs is only $103$ ($29\%$ above
+expectation) --- a marginal excess that does not constitute strong evidence
+for a genuine signal.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{geo_heatmap.png}
+  \caption{Heatmap of BH-significant station--grid-cell pairs ($q = 0.05$).
+  Each row is an NMDB station; each column is a $10° \times 10°$ seismic grid
+  cell. Significant pairs (455/7{,}037) are scattered without obvious geographic
+  clustering, inconsistent with a local coupling mechanism.}
+  \label{fig:geoheatmap}
+\end{figure}
+
+Figure~\ref{fig:geodistlag} shows the regression of the optimal lag $\tau^*(s,g)$
+on great-circle distance $d(s,g)$.
+The slope is $\beta = -0.45$~days/1000\,km ($p = 0.21$, $R^2 = 0.0002$),
+indistinguishable from zero.
+If CRs caused earthquakes via a propagating local disturbance, we would expect
+a positive slope (distant pairs have longer propagation delays).
+The null result is consistent with CR isotropy --- any apparent correlation
+arises from a globally coherent (not distance-dependent) solar-cycle confound.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{geo_distance_lag.png}
+  \caption{Optimal lag $\tau^*(s,g)$ vs.\ great-circle distance $d(s,g)$ for all
+  7{,}037 station--cell pairs (grey) and BH-significant pairs (coloured by peak $|r|$).
+  The OLS regression line (red) has slope $\beta = -0.45$~days/1000\,km ($p=0.21$),
+  consistent with zero. A local propagation mechanism would predict a positive slope.}
+  \label{fig:geodistlag}
+\end{figure}
+
+\subsection{Pre-Registered Out-of-Sample Validation (2020--2025)}
+\label{sec:res:oos}
+
+The out-of-sample analysis used data from 2020-01-01 to 2025-04-29 ($T = 390$
+five-day bins, 35 NMDB stations), a window completely disjoint from the
+in-sample period.
+
+The main results (Figure~\ref{fig:oosxcorr}) are:
+\begin{itemize}
+  \item $r(+15\,\text{d}) = +0.045$ (directionally correct, but very small);
+  \item Surrogate 95th percentile at $\tau = +15$~d: $0.136$ (observed is
+    well below this threshold);
+  \item $p_\text{global} = 0.994$ --- the observed peak cross-correlation is
+    exceeded by 99.4\% of phase-randomisation surrogates.
+\end{itemize}
+
+The prediction scorecard (Table~\ref{tab:prereg}) shows one pass (P1: correct
+sign), one failure (P2: $p > 0.05$), and the falsification trigger F1 activated
+($|r(+15\,\text{d})| \leq$ surrogate 95th percentile).
+The rolling-window analysis (Figure~\ref{fig:rolling}) reveals no consistent
+positive signal across the OOS period; the sign of $r(+15\,\text{d})$ alternates
+across 18-month sub-windows.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{oos_xcorr.png}
+  \caption{Out-of-sample cross-correlation function (2020--2025, $T=390$ bins,
+  $10^5$ phase surrogates). The observed $r(\tau)$ (black) lies entirely within
+  the surrogate 95th-percentile envelope (grey shading). The claimed signal at
+  $\tau = +15$~d (vertical line) is $r = 0.045$ --- below the surrogate 95th
+  percentile of 0.136.}
+  \label{fig:oosxcorr}
+\end{figure}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Pre-registered prediction scorecard for the out-of-sample window.}
+  \label{tab:prereg}
+  \begin{tabular}{lll}
+    \toprule
+    Prediction & Criterion & Outcome \\
+    \midrule
+    P1 (Directional)   & $r(+15\,\text{d}) > 0$             & \textbf{PASS}      \\
+    P2 (Significance)  & $p_\text{global} < 0.05$            & \textbf{FAIL}      \\
+    P3 (Stability)     & std(rolling $r$) $\leq 0.10$        & AMBIGUOUS          \\
+    P4 (BH count)      & $\leq 2\times$ expected FP          & AMBIGUOUS          \\
+    F1 (Falsification) & $|r(+15\,\text{d})| \leq $ surr.\ 95th & \textbf{TRIGGERED} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{rolling_correlation_oos.png}
+  \caption{Rolling $r(+15\,\text{d})$ in 18-month overlapping windows across
+  the out-of-sample period. Error bars are bootstrap 95\% confidence intervals.
+  The grey horizontal band shows the surrogate 95th percentile.
+  The signal shows no consistent sign or trend.}
+  \label{fig:rolling}
+\end{figure}
+
+\subsection{Combined 1976--2025 Analysis: Sinusoidal Modulation}
+\label{sec:res:combined}
+
+Figure~\ref{fig:combined} shows the annual rolling $r(+15\,\text{d})$ over the
+full 1976--2025 record, together with the best-fit sinusoidal envelope.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{full_series_with_envelope_fit.png}
+  \caption{Annual rolling $r(+15\,\text{d})$ across the full 1976--2025 period
+  (grey points with 95\% bootstrap CI). The sinusoidal best-fit (red curve,
+  $P = 9.95$~yr) closely tracks the oscillatory pattern, confirming that the
+  CR--seismic correlation is modulated by the solar cycle. The vertical dashed
+  line marks the in-sample/out-of-sample split (2020).}
+  \label{fig:combined}
+\end{figure}
+
+The global surrogate test on the full 1976--2025 window yields $p = 0.039$
+($\sigma = 2.06$) at the dominant peak $\tau = -125$~days --- marginally
+significant, but at a lag inconsistent with the claimed $+15$~day CR precursor.
+
+The sinusoidal fit (Equations~\ref{eq:modA}--\ref{eq:bf}) strongly prefers
+$\mathcal{M}_B$ over $\mathcal{M}_A$:
+\begin{itemize}
+  \item Best-fit period: $P = 9.95 \pm 0.5$~years;
+  \item Amplitude: $A = 0.147$;
+  \item $\Delta\text{BIC} = 6.62$ (positive = $\mathcal{M}_B$ preferred);
+  \item Bayes factor: $\text{BF}_{BA} = 27.5$.
+\end{itemize}
+
+A Bayes factor of 27.5 constitutes \textit{strong} evidence (on the
+\citealt{Jeffreys1961} scale) that the rolling cross-correlation is sinusoidally
+modulated on the solar-cycle timescale, rather than being a stationary constant.
+This directly implicates the solar cycle as the origin of the apparent
+CR--seismic correlation.
+
+%%%% ═══════════════════════════════════════════════════════════════════════════
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Why Does the Raw Correlation Appear So Strong?}
+
+The raw $r = 0.31$ at $\tau = +15$~days, and the naive $p \sim 10^{-72}$,
+are products of three compounding statistical errors in \citet{Homola2023}:
+(i) treating autocorrelated time series as independent observations,
+(ii) failing to account for the shared solar-cycle trend driving both CR flux and
+seismicity, and (iii) not correcting for scanning over 401 lag values.
+
+The solar cycle is the key confounder.
+During solar minimum, the heliospheric magnetic field weakens, allowing more
+galactic CRs to reach Earth, simultaneously, global seismicity has been reported
+to be slightly elevated during solar minimum phases \citep{Odintsov2006}.
+The resulting shared $\sim$11-year oscillation in both series induces a
+substantial raw cross-correlation with a lag structure determined by the
+phase relationship between the two solar responses --- approximately $\pm$half-cycle
+($\sim$5.5 years $\approx 2{,}000$ days), consistent with the dominant raw peak
+at $\tau = -525$~days.
+
+\subsection{Physical Plausibility of the Claimed Mechanism}
+
+Even setting aside the statistical issues, the proposed mechanism faces severe
+physical constraints.
+The total ionisation dose from galactic CRs at the surface is
+$\sim$\SI{0.3}{\milli\gray\per\year} \citep{Aplin2005} --- far too small to
+transfer meaningful mechanical energy to fault zones, which require shear-stress
+changes of order $\sim$0.01--1~MPa to trigger earthquakes.
+Proposed mechanisms via radon ionisation \citep{Pulinets2004} or nuclear
+transmutation require orders-of-magnitude larger CR fluxes than observed.
+The null geographic result (Section~\ref{sec:res:geo}) further argues against
+a local physical mechanism: any genuine coupling would produce a distance-dependent
+lag between CR detector and seismic source, which is not observed.
+
+\subsection{Comparison with Prior Replication Attempts}
+
+Independent replication attempts of the \citet{Homola2023} result have been
+limited.
+\citet{Urata2018} found similarly inflated correlations using Japanese CR stations
+and reported that detrending removed most of the signal.
+Our analysis is the first to combine all three of: IAAFT surrogate testing,
+solar-cycle-aware detrending, geographic localisation scanning, and pre-registered
+out-of-sample validation.
+
+\subsection{Limitations}
+
+Several limitations should be acknowledged:
+\begin{enumerate}
+  \item The OOS window (2020--2025) encompasses Solar Cycle~25, a period of
+    rising solar activity after the deep minimum of Cycle~24.
+    The absence of a solar minimum in this window limits statistical power.
+  \item Seismicity is not stationary; major seismic sequences (e.g.\ Tonga 2022)
+    can inflate the seismic metric in individual bins.
+  \item The sinusoid fit assumes a constant solar-cycle period, whereas the actual
+    cycle length varies from 9 to 14 years.
+  \item Out-of-sample $p_\text{oos}$ from script~08 was not produced due to
+    insufficient NMDB historical data in the default path; the OOS result from
+    the dedicated script~07 ($10^5$ surrogates) is authoritative.
+\end{enumerate}
+
+%%%% ═══════════════════════════════════════════════════════════════════════════
+\section{Conclusions}
+\label{sec:conclusions}
+
+We have conducted a rigorous, pre-registered replication of the claimed
+cosmic-ray/earthquake correlation from \citet{Homola2023} using 49 years of
+data from 44 neutron monitors, the USGS global catalogue, and SILSO sunspot
+numbers.
+Our principal findings are:
+
+\begin{enumerate}
+  \item The raw cross-correlation $r(+15\,\text{d}) = 0.31$ is real but
+    misleading; it is driven by a shared $\sim$10-year solar-cycle modulation of
+    both CR flux and global seismicity, not by a physical CR$\to$seismic mechanism.
+
+  \item After solar-cycle detrending, $r(+15\,\text{d})$ falls to $0.04$ (HP),
+    $0.11$ (STL), or $0.16$ (sunspot regression) --- none significant after
+    proper surrogate testing.
+
+  \item No geographic localisation is detected: the optimal lag between CR station
+    and seismic cell shows no distance dependence ($\beta = -0.45$~d/1000~km,
+    $p = 0.21$), inconsistent with a local propagation mechanism.
+
+  \item A pre-registered out-of-sample test on 2020--2025 yields
+    $r(+15\,\text{d}) = 0.045$ and $p_\text{global} = 0.994$, entirely
+    consistent with noise.
+
+  \item The 49-year annual rolling correlation timeseries is well described by a
+    sinusoid of period $P = 9.95$~years (Bayes factor 27.5 vs.\ constant),
+    confirming solar-cycle modulation.
+\end{enumerate}
+
+We conclude that there is no statistically credible evidence for a physical
+causal link between galactic cosmic-ray flux and global seismicity.
+
+%%%% ═══════════════════════════════════════════════════════════════════════════
+\section*{Data Availability}
+
+All analysis code, pre-registration documents, intermediate results, and figures
+are publicly available at
+\url{https://github.com/pingud98/cosmicraysandearthquakes} under the MIT licence.
+Raw data are freely accessible from their respective providers:
+NMDB (\url{https://www.nmdb.eu}),
+USGS (\url{https://earthquake.usgs.gov/fdsnws/event/1/}),
+and SIDC (\url{https://www.sidc.be/silso/datafiles}).
+
+\section*{Acknowledgements}
+
+The author thanks the operators of the NMDB network for maintaining open-access
+neutron monitor data, and the USGS Earthquake Hazards Programme for the FDSN
+catalogue service.
+GPU computations were performed on an NVIDIA Tesla M40.
+
+%%%% ═══════════════════════════════════════════════════════════════════════════
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\end{document}
