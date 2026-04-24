@@ -1,0 +1,346 @@
+{
+  "study_start": "1976-01-01",
+  "study_end": "2025-04-29",
+  "n_surrogates": 10000,
+  "gpu_device": "Tesla M40 (12.0 GB)",
+  "roll_window_bins": 219,
+  "roll_step_bins": 73,
+  "p_global_full": 0.0391,
+  "sigma_full": 2.063,
+  "peak_lag_full": -125,
+  "T_full": 3215,
+  "p_global_insample": 0.0394,
+  "sigma_insample": 2.06,
+  "peak_lag_insample": -125,
+  "p_global_oos": null,
+  "sigma_oos": null,
+  "peak_lag_oos": null,
+  "sinusoid_fit": {
+    "status": "ok",
+    "n": 44,
+    "model_A_mu": 0.03810137537027485,
+    "model_A_rss": 1.4250059377605158,
+    "model_A_bic": -147.13641111378288,
+    "model_B_A": 0.14697276976210524,
+    "model_B_period": 9.951134330535053,
+    "model_B_phi": 4.406952670096151,
+    "model_B_mu": 0.04805217589705477,
+    "model_B_rss": 0.9470531815602373,
+    "model_B_bic": -153.7611866521916,
+    "delta_bic": 6.624775538408727,
+    "bayes_factor": 27.45059296068454,
+    "preferred_model": "B (sinusoidal)"
+  },
+  "roster": {},
+  "n_rolling_windows": 44,
+  "rolling_windows": [
+    {
+      "center_date": "1977-06-29",
+      "center_year": 1977.5,
+      "r": -0.07304197565233789,
+      "n_pairs": 216,
+      "n_eff": 167.5
+    },
+    {
+      "center_date": "1978-06-29",
+      "center_year": 1978.5,
+      "r": -0.08997276226742033,
+      "n_pairs": 216,
+      "n_eff": 157.9
+    },
+    {
+      "center_date": "1979-06-29",
+      "center_year": 1979.5,
+      "r": -0.10064371974119339,
+      "n_pairs": 216,
+      "n_eff": 142.1
+    },
+    {
+      "center_date": "1980-06-28",
+      "center_year": 1980.5,
+      "r": 0.1387293480900925,
+      "n_pairs": 216,
+      "n_eff": 162.4
+    },
+    {
+      "center_date": "1981-06-28",
+      "center_year": 1981.5,
+      "r": 0.12399808185165744,
+      "n_pairs": 216,
+      "n_eff": 163.5
+    },
+    {
+      "center_date": "1982-06-28",
+      "center_year": 1982.5,
+      "r": 0.05498839726187148,
+      "n_pairs": 216,
+      "n_eff": 135.1
+    },
+    {
+      "center_date": "1983-06-28",
+      "center_year": 1983.5,
+      "r": 0.08625587610195634,
+      "n_pairs": 216,
+      "n_eff": 131.9
+    },
+    {
+      "center_date": "1984-06-27",
+      "center_year": 1984.5,
+      "r": 0.19501846317350097,
+      "n_pairs": 216,
+      "n_eff": 126.7
+    },
+    {
+      "center_date": "1985-06-27",
+      "center_year": 1985.5,
+      "r": 0.26660955823518667,
+      "n_pairs": 216,
+      "n_eff": 129.9
+    },
+    {
+      "center_date": "1986-06-27",
+      "center_year": 1986.5,
+      "r": 0.053060019008078135,
+      "n_pairs": 216,
+      "n_eff": 141.9
+    },
+    {
+      "center_date": "1987-06-27",
+      "center_year": 1987.5,
+      "r": 0.12259905609503514,
+      "n_pairs": 216,
+      "n_eff": 138.7
+    },
+    {
+      "center_date": "1988-06-26",
+      "center_year": 1988.5,
+      "r": 0.058069494988180585,
+      "n_pairs": 216,
+      "n_eff": 151.6
+    },
+    {
+      "center_date": "1989-06-26",
+      "center_year": 1989.5,
+      "r": -0.12715297356977961,
+      "n_pairs": 216,
+      "n_eff": 150.3
+    },
+    {
+      "center_date": "1990-06-26",
+      "center_year": 1990.5,
+      "r": 0.015330129929657415,
+      "n_pairs": 216,
+      "n_eff": 150.8
+    },
+    {
+      "center_date": "1991-06-26",
+      "center_year": 1991.5,
+      "r": 0.19374509216197436,
+      "n_pairs": 216,
+      "n_eff": 139.3
+    },
+    {
+      "center_date": "1992-06-25",
+      "center_year": 1992.5,
+      "r": 0.22639916082796394,
+      "n_pairs": 216,
+      "n_eff": 122.1
+    },
+    {
+      "center_date": "1993-06-25",
+      "center_year": 1993.5,
+      "r": -0.030154303926572024,
+      "n_pairs": 216,
+      "n_eff": 118.3
+    },
+    {
+      "center_date": "1994-06-25",
+      "center_year": 1994.5,
+      "r": 0.4464462711030149,
+      "n_pairs": 216,
+      "n_eff": 92.0
+    },
+    {
+      "center_date": "1995-06-25",
+      "center_year": 1995.5,
+      "r": 0.46846538331881726,
+      "n_pairs": 216,
+      "n_eff": 101.1
+    },
+    {
+      "center_date": "1996-06-24",
+      "center_year": 1996.5,
+      "r": 0.0010884593495063466,
+      "n_pairs": 216,
+      "n_eff": 155.3
+    },
+    {
+      "center_date": "1997-06-24",
+      "center_year": 1997.5,
+      "r": 0.13927312030650843,
+      "n_pairs": 216,
+      "n_eff": 124.8
+    },
+    {
+      "center_date": "1998-06-24",
+      "center_year": 1998.5,
+      "r": 0.09462289865462623,
+      "n_pairs": 216,
+      "n_eff": 102.6
+    },
+    {
+      "center_date": "1999-06-24",
+      "center_year": 1999.5,
+      "r": -0.3074029329895098,
+      "n_pairs": 216,
+      "n_eff": 102.0
+    },
+    {
+      "center_date": "2000-06-23",
+      "center_year": 2000.5,
+      "r": -0.2610928794450835,
+      "n_pairs": 216,
+      "n_eff": 115.0
+    },
+    {
+      "center_date": "2001-06-23",
+      "center_year": 2001.5,
+      "r": -0.1904780542634531,
+      "n_pairs": 216,
+      "n_eff": 129.8
+    },
+    {
+      "center_date": "2002-06-23",
+      "center_year": 2002.5,
+      "r": -0.13152989315486557,
+      "n_pairs": 216,
+      "n_eff": 152.3
+    },
+    {
+      "center_date": "2003-06-23",
+      "center_year": 2003.5,
+      "r": 0.30074616915588975,
+      "n_pairs": 216,
+      "n_eff": 103.4
+    },
+    {
+      "center_date": "2004-06-22",
+      "center_year": 2004.5,
+      "r": 0.31194289965738514,
+      "n_pairs": 216,
+      "n_eff": 90.4
+    },
+    {
+      "center_date": "2005-06-22",
+      "center_year": 2005.5,
+      "r": 0.12462302910590135,
+      "n_pairs": 216,
+      "n_eff": 120.2
+    },
+    {
+      "center_date": "2006-06-22",
+      "center_year": 2006.5,
+      "r": -0.08356145006599772,
+      "n_pairs": 216,
+      "n_eff": 120.3
+    },
+    {
+      "center_date": "2007-06-22",
+      "center_year": 2007.5,
+      "r": 0.0304484443288193,
+      "n_pairs": 216,
+      "n_eff": 129.9
+    },
+    {
+      "center_date": "2008-06-21",
+      "center_year": 2008.5,
+      "r": -0.44128635766757796,
+      "n_pairs": 216,
+      "n_eff": 88.7
+    },
+    {
+      "center_date": "2009-06-21",
+      "center_year": 2009.5,
+      "r": -0.2423228521602404,
+      "n_pairs": 216,
+      "n_eff": 134.2
+    },
+    {
+      "center_date": "2010-06-21",
+      "center_year": 2010.5,
+      "r": -0.1553791297352043,
+      "n_pairs": 216,
+      "n_eff": 78.8
+    },
+    {
+      "center_date": "2011-06-21",
+      "center_year": 2011.5,
+      "r": 0.06528490893846879,
+      "n_pairs": 216,
+      "n_eff": 219.0
+    },
+    {
+      "center_date": "2012-06-20",
+      "center_year": 2012.5,
+      "r": 0.08690195508067765,
+      "n_pairs": 216,
+      "n_eff": 214.9
+    },
+    {
+      "center_date": "2013-06-20",
+      "center_year": 2013.5,
+      "r": 0.07842413402898289,
+      "n_pairs": 216,
+      "n_eff": 216.0
+    },
+    {
+      "center_date": "2014-06-20",
+      "center_year": 2014.5,
+      "r": 0.02865034198205194,
+      "n_pairs": 216,
+      "n_eff": 199.3
+    },
+    {
+      "center_date": "2015-06-20",
+      "center_year": 2015.5,
+      "r": 0.03395144204160391,
+      "n_pairs": 216,
+      "n_eff": 193.1
+    },
+    {
+      "center_date": "2016-06-19",
+      "center_year": 2016.5,
+      "r": -0.030372822325838798,
+      "n_pairs": 216,
+      "n_eff": 107.1
+    },
+    {
+      "center_date": "2017-06-19",
+      "center_year": 2017.5,
+      "r": 0.06681413442428236,
+      "n_pairs": 216,
+      "n_eff": 156.2
+    },
+    {
+      "center_date": "2018-06-19",
+      "center_year": 2018.5,
+      "r": 0.0195590406606907,
+      "n_pairs": 216,
+      "n_eff": 176.0
+    },
+    {
+      "center_date": "2019-06-19",
+      "center_year": 2019.5,
+      "r": 0.056103936327729184,
+      "n_pairs": 146,
+      "n_eff": 130.2
+    },
+    {
+      "center_date": "2020-06-18",
+      "center_year": 2020.5,
+      "r": 0.05270337706705674,
+      "n_pairs": 73,
+      "n_eff": 68.2
+    }
+  ]
+}
