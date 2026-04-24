@@ -499,6 +499,16 @@ def make_combined_figure(
 # Report
 # ---------------------------------------------------------------------------
 
+def _fv(v, fmt: str) -> str:
+    """Format a possibly-None float; returns 'N/A' when None/NaN."""
+    if v is None:
+        return "N/A"
+    try:
+        return format(float(v), fmt)
+    except (TypeError, ValueError):
+        return "N/A"
+
+
 def write_combined_report(
     results: dict,
     sinusoid_fit: dict,
@@ -536,9 +546,9 @@ Surrogates: {args.n_surrogates:,} per window
 
 | Window | p_global | σ_surrogate | peak lag |
 |---|---|---|---|
-| In-sample (1976–2019) | {results.get('p_global_insample', float('nan')):.4f} | {results.get('sigma_insample', float('nan')):.2f} | {results.get('peak_lag_insample', '?')} d |
-| Out-of-sample (2020–{args.study_end[:4]}) | {results.get('p_global_oos', float('nan')):.4f} | {results.get('sigma_oos', float('nan')):.2f} | {results.get('peak_lag_oos', '?')} d |
-| Combined (1976–{args.study_end[:4]}) | {results.get('p_global_full', float('nan')):.4f} | {results.get('sigma_full', float('nan')):.2f} | {results.get('peak_lag_full', '?')} d |
+| In-sample (1976–2019) | {_fv(results.get('p_global_insample'), '.4f')} | {_fv(results.get('sigma_insample'), '.2f')} | {results.get('peak_lag_insample', 'N/A')} d |
+| Out-of-sample (2020–{args.study_end[:4]}) | {_fv(results.get('p_global_oos'), '.4f')} | {_fv(results.get('sigma_oos'), '.2f')} | {results.get('peak_lag_oos', 'N/A')} d |
+| Combined (1976–{args.study_end[:4]}) | {_fv(results.get('p_global_full'), '.4f')} | {_fv(results.get('sigma_full'), '.2f')} | {results.get('peak_lag_full', 'N/A')} d |
 
 ## Sinusoidal envelope fit
 

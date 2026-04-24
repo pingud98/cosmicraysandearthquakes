@@ -119,12 +119,13 @@ def auto_batch_size(
             + T * 4                          # int32 rank buffer
         )
     else:
-        # Phase: tiled signal + sorted copy + rank buffer + rfft
+        # Phase: tiled signal + sorted copy + rank buffer + rfft + irfft output
         bytes_per_surrogate = (
             T * bytes_per_elem           # signal
             + T * bytes_per_elem         # sorted copy
             + T * 4                      # int32 rank indices
-            + (T // 2 + 1) * 8          # complex64 FFT
+            + (T // 2 + 1) * 8          # complex64 FFT coefficients
+            + T * bytes_per_elem         # irfft output buffer (was missing)
         )
     budget = vram_budget_gb * 1e9 * (1.0 - headroom)
     batch = max(1, int(budget // bytes_per_surrogate))
