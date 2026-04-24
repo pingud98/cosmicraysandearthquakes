@@ -1,4 +1,4 @@
-\begin{thebibliography}{21}
+\begin{thebibliography}{22}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -72,6 +72,13 @@ Hiroo Kanamori.
 \newblock \emph{Journal of Geophysical Research}, 82\penalty0 (20):\penalty0
   2981--2987, 1977.
 \newblock \doi{10.1029/JB082i020p02981}.
+
+\bibitem[Kass and Raftery(1995)]{KassRaftery1995}
+Robert~E. Kass and Adrian~E. Raftery.
+\newblock Bayes factors.
+\newblock \emph{Journal of the American Statistical Association}, 90\penalty0
+  (430):\penalty0 773--795, 1995.
+\newblock \doi{10.1080/01621459.1995.10476572}.
 
 \bibitem[Kraskov et~al.(2004)Kraskov, St{\"o}gbauer, and
   Grassberger]{Kraskov2004}

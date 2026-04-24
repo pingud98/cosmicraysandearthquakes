@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2026.4.24)  24 APR 2026 20:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2026.4.24)  24 APR 2026 21:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -709,234 +709,242 @@ LaTeX Font Info:    External font `lmex10' loaded for size
  [4] [5] [6]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 216.
+(hyperref)                removing `math shift' on input line 221.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\tau' on input line 216.
+(hyperref)                removing `\tau' on input line 221.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 216.
+(hyperref)                removing `math shift' on input line 221.
 
 [7]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 310.
+(hyperref)                removing `math shift' on input line 315.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 310.
+(hyperref)                removing `math shift' on input line 315.
 
 [8] [9]
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 438.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 443.
 
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 4
-38.
+43.
 (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 438.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 443.
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 438.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 443.
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 438.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 443.
 
 [10]
-Overfull \hbox (25.1207pt too wide) in paragraph at lines 458--460
+Overfull \hbox (25.1207pt too wide) in paragraph at lines 463--465
 []\T1/lmr/m/n/12 (-20) This file was com-mit-ted to git (\T1/lmtt/m/n/12 1832f7
 3\T1/lmr/m/n/12 (-20) ) with a UTC times-tamp (\T1/lmtt/m/n/12 2026-04-22T00:44
 :30Z\T1/lmr/m/n/12 (-20) )
  []
 
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 501.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 501.
+
 [11]
-Overfull \hbox (4.69275pt too wide) in paragraph at lines 505--505
+Overfull \hbox (4.69275pt too wide) in paragraph at lines 544--544
 []\T1/lmr/bx/n/14.4 (-20) Raw Pair-wise Cor-re-la-tions Be-tween CR, Seis-mic, 
 and Sunspot
  []
 
 [12] [13]
-Overfull \hbox (137.43011pt too wide) in paragraph at lines 634--655
+Overfull \hbox (137.43011pt too wide) in paragraph at lines 673--694
  [][] 
  []
 
-<figs//raw_corr_insample.png, id=455, 997.326pt x 333.4056pt>
+<figs//raw_corr_insample.png, id=452, 997.326pt x 333.4056pt>
 File: figs//raw_corr_insample.png Graphic file (type png)
 <use figs//raw_corr_insample.png>
-Package pdftex.def Info: figs//raw_corr_insample.png  used on input line 665.
+Package pdftex.def Info: figs//raw_corr_insample.png  used on input line 704.
 (pdftex.def)             Requested size: 455.24411pt x 152.18816pt.
-<figs//raw_corr_oos.png, id=457, 997.8078pt x 333.4056pt>
+<figs//raw_corr_oos.png, id=454, 997.8078pt x 333.4056pt>
 File: figs//raw_corr_oos.png Graphic file (type png)
 <use figs//raw_corr_oos.png>
-Package pdftex.def Info: figs//raw_corr_oos.png  used on input line 683.
+Package pdftex.def Info: figs//raw_corr_oos.png  used on input line 722.
 (pdftex.def)             Requested size: 455.24411pt x 152.11694pt.
-<figs//raw_corr_combined.png, id=460, 997.326pt x 333.4056pt>
+<figs//raw_corr_combined.png, id=457, 997.326pt x 333.4056pt>
 File: figs//raw_corr_combined.png Graphic file (type png)
 <use figs//raw_corr_combined.png>
-Package pdftex.def Info: figs//raw_corr_combined.png  used on input line 696.
+Package pdftex.def Info: figs//raw_corr_combined.png  used on input line 735.
 (pdftex.def)             Requested size: 455.24411pt x 152.18816pt.
-<figs//homola_replication.png, id=465, 1001.6622pt x 856.6404pt>
+[14] [15 <./figs//raw_corr_insample.png>] [16 <./figs//raw_corr_oos.png> <./fig
+s//raw_corr_combined.png>]
+<figs//homola_replication.png, id=480, 1001.6622pt x 856.6404pt>
 File: figs//homola_replication.png Graphic file (type png)
 <use figs//homola_replication.png>
-Package pdftex.def Info: figs//homola_replication.png  used on input line 727.
+Package pdftex.def Info: figs//homola_replication.png  used on input line 766.
 (pdftex.def)             Requested size: 409.71692pt x 350.38828pt.
-[14] [15 <./figs//raw_corr_insample.png> <./figs//raw_corr_oos.png>] [16 <./fig
-s//raw_corr_combined.png> <./figs//homola_replication.png>]
-<figs//stress_test.png, id=485, 1001.6622pt x 856.1586pt>
+ [17 <./figs//homola_replication.png>]
+<figs//stress_test.png, id=488, 1001.6622pt x 856.1586pt>
 File: figs//stress_test.png Graphic file (type png)
 <use figs//stress_test.png>
-Package pdftex.def Info: figs//stress_test.png  used on input line 757.
+Package pdftex.def Info: figs//stress_test.png  used on input line 796.
 (pdftex.def)             Requested size: 409.71692pt x 350.19121pt.
- [17 <./figs//stress_test.png>]
-<figs//detrended_xcorr.png, id=496, 1076.3412pt x 732.336pt>
+ [18 <./figs//stress_test.png>]
+<figs//detrended_xcorr.png, id=501, 1076.3412pt x 732.336pt>
 File: figs//detrended_xcorr.png Graphic file (type png)
 <use figs//detrended_xcorr.png>
-Package pdftex.def Info: figs//detrended_xcorr.png  used on input line 806.
+Package pdftex.def Info: figs//detrended_xcorr.png  used on input line 848.
 (pdftex.def)             Requested size: 409.71692pt x 278.77107pt.
-<figs//detrend_robustness.png, id=498, 1004.0712pt x 639.8304pt>
+<figs//detrend_robustness.png, id=503, 1004.0712pt x 639.8304pt>
 File: figs//detrend_robustness.png Graphic file (type png)
 <use figs//detrend_robustness.png>
-Package pdftex.def Info: figs//detrend_robustness.png  used on input line 832.
+Package pdftex.def Info: figs//detrend_robustness.png  used on input line 874.
 (pdftex.def)             Requested size: 409.71692pt x 261.08249pt.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 841.
+(hyperref)                removing `math shift' on input line 883.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 841.
+(hyperref)                removing `subscript' on input line 883.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 841.
+(hyperref)                removing `math shift' on input line 883.
 
-[18] [19 <./figs//detrended_xcorr.png> <./figs//detrend_robustness.png>]
-<figs//magnitude_threshold.png, id=516, 1148.6112pt x 321.3606pt>
+[19] [20 <./figs//detrended_xcorr.png> <./figs//detrend_robustness.png>]
+<figs//magnitude_threshold.png, id=521, 1148.6112pt x 321.3606pt>
 File: figs//magnitude_threshold.png Graphic file (type png)
 <use figs//magnitude_threshold.png>
-Package pdftex.def Info: figs//magnitude_threshold.png  used on input line 888.
+Package pdftex.def Info: figs//magnitude_threshold.png  used on input line 930.
 
 (pdftex.def)             Requested size: 409.71692pt x 114.63055pt.
 
-[20 <./figs//magnitude_threshold.png>]
-<figs//block_bootstrap_null.png, id=526, 787.743pt x 278.4804pt>
+[21 <./figs//magnitude_threshold.png>]
+<figs//block_bootstrap_null.png, id=531, 787.743pt x 278.4804pt>
 File: figs//block_bootstrap_null.png Graphic file (type png)
 <use figs//block_bootstrap_null.png>
-Package pdftex.def Info: figs//block_bootstrap_null.png  used on input line 922
+Package pdftex.def Info: figs//block_bootstrap_null.png  used on input line 964
 .
 (pdftex.def)             Requested size: 432.48051pt x 152.89273pt.
-<figs//partial_correlation.png, id=528, 642.7212pt x 277.9986pt>
+<figs//partial_correlation.png, id=533, 642.7212pt x 277.9986pt>
 File: figs//partial_correlation.png Graphic file (type png)
 <use figs//partial_correlation.png>
-Package pdftex.def Info: figs//partial_correlation.png  used on input line 952.
+Package pdftex.def Info: figs//partial_correlation.png  used on input line 994.
 
 (pdftex.def)             Requested size: 409.71692pt x 177.21432pt.
- [21 <./figs//block_bootstrap_null.png>]
-<figs//spectral_coherence.png, id=540, 787.2612pt x 277.9986pt>
+ [22 <./figs//block_bootstrap_null.png>]
+<figs//spectral_coherence.png, id=545, 787.2612pt x 277.9986pt>
 File: figs//spectral_coherence.png Graphic file (type png)
 <use figs//spectral_coherence.png>
-Package pdftex.def Info: figs//spectral_coherence.png  used on input line 991.
+Package pdftex.def Info: figs//spectral_coherence.png  used on input line 1033.
+
 (pdftex.def)             Requested size: 432.48051pt x 152.71729pt.
 
-[22 <./figs//partial_correlation.png>] [23 <./figs//spectral_coherence.png>]
-<figs//bin_size_sensitivity.png, id=555, 1002.144pt x 285.7074pt>
+[23 <./figs//partial_correlation.png>] [24 <./figs//spectral_coherence.png>]
+<figs//bin_size_sensitivity.png, id=560, 1002.144pt x 285.7074pt>
 File: figs//bin_size_sensitivity.png Graphic file (type png)
 <use figs//bin_size_sensitivity.png>
-Package pdftex.def Info: figs//bin_size_sensitivity.png  used on input line 106
-0.
+Package pdftex.def Info: figs//bin_size_sensitivity.png  used on input line 110
+2.
 (pdftex.def)             Requested size: 455.24411pt x 129.7878pt.
-<figs//declustered_xcorr.png, id=559, 642.7212pt x 277.9986pt>
+<figs//declustered_xcorr.png, id=564, 642.7212pt x 277.9986pt>
 File: figs//declustered_xcorr.png Graphic file (type png)
 <use figs//declustered_xcorr.png>
-Package pdftex.def Info: figs//declustered_xcorr.png  used on input line 1089.
+Package pdftex.def Info: figs//declustered_xcorr.png  used on input line 1131.
 (pdftex.def)             Requested size: 409.71692pt x 177.21432pt.
 
-[24 <./figs//bin_size_sensitivity.png>]
-<figs//solar_cycle_xcorr.png, id=571, 859.5312pt x 569.0058pt>
+[25 <./figs//bin_size_sensitivity.png>]
+<figs//solar_cycle_xcorr.png, id=577, 859.5312pt x 569.0058pt>
 File: figs//solar_cycle_xcorr.png Graphic file (type png)
 <use figs//solar_cycle_xcorr.png>
-Package pdftex.def Info: figs//solar_cycle_xcorr.png  used on input line 1135.
+Package pdftex.def Info: figs//solar_cycle_xcorr.png  used on input line 1177.
 (pdftex.def)             Requested size: 455.24411pt x 301.37195pt.
- [25 <./figs//declustered_xcorr.png>]
-[26 <./figs//solar_cycle_xcorr.png>]
-<figs//geo_heatmap.png, id=587, 1292.6694pt x 498.1812pt>
+ [26 <./figs//declustered_xcorr.png>]
+[27 <./figs//solar_cycle_xcorr.png>]
+<figs//geo_heatmap.png, id=592, 1292.6694pt x 498.1812pt>
 File: figs//geo_heatmap.png Graphic file (type png)
 <use figs//geo_heatmap.png>
-Package pdftex.def Info: figs//geo_heatmap.png  used on input line 1158.
+Package pdftex.def Info: figs//geo_heatmap.png  used on input line 1200.
 (pdftex.def)             Requested size: 409.71692pt x 157.90091pt.
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1162.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1204.
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1162.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1204.
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1162.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1204.
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1162.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1204.
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1162.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1204.
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1162.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1204.
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1162.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1204.
 
 
-LaTeX Warning: Command \textdegree invalid in math mode on input line 1162.
+LaTeX Warning: Command \textdegree invalid in math mode on input line 1204.
 
-<figs//geo_distance_lag.png, id=589, 1148.6112pt x 424.4658pt>
+<figs//geo_distance_lag.png, id=594, 1148.6112pt x 424.4658pt>
 File: figs//geo_distance_lag.png Graphic file (type png)
 <use figs//geo_distance_lag.png>
-Package pdftex.def Info: figs//geo_distance_lag.png  used on input line 1177.
+Package pdftex.def Info: figs//geo_distance_lag.png  used on input line 1222.
 (pdftex.def)             Requested size: 409.71692pt x 151.40857pt.
-[27 <./figs//geo_heatmap.png> <./figs//geo_distance_lag.png>]
-<figs//oos_xcorr.png, id=600, 849.8952pt x 336.2964pt>
+[28 <./figs//geo_heatmap.png> <./figs//geo_distance_lag.png>]
+<figs//oos_xcorr.png, id=605, 849.8952pt x 336.2964pt>
 File: figs//oos_xcorr.png Graphic file (type png)
 <use figs//oos_xcorr.png>
-Package pdftex.def Info: figs//oos_xcorr.png  used on input line 1210.
+Package pdftex.def Info: figs//oos_xcorr.png  used on input line 1258.
 (pdftex.def)             Requested size: 409.71692pt x 162.12344pt.
-<figs//rolling_correlation_oos.png, id=601, 731.3724pt x 323.7696pt>
+<figs//rolling_correlation_oos.png, id=606, 731.3724pt x 323.7696pt>
 File: figs//rolling_correlation_oos.png Graphic file (type png)
 <use figs//rolling_correlation_oos.png>
 Package pdftex.def Info: figs//rolling_correlation_oos.png  used on input line 
-1238.
+1286.
 (pdftex.def)             Requested size: 409.71692pt x 181.3789pt.
- [28 <./figs//oos_xcorr.png>]
-<figs//full_series_with_envelope_fit.png, id=611, 955.4094pt x 447.5922pt>
+ [29 <./figs//oos_xcorr.png>]
+<figs//full_series_with_envelope_fit.png, id=616, 955.4094pt x 447.5922pt>
 File: figs//full_series_with_envelope_fit.png Graphic file (type png)
 <use figs//full_series_with_envelope_fit.png>
 Package pdftex.def Info: figs//full_series_with_envelope_fit.png  used on input
- line 1254.
+ line 1302.
 (pdftex.def)             Requested size: 409.71692pt x 191.94183pt.
- [29 <./figs//rolling_correlation_oos.png> <./figs//full_series_with_envelope_f
-it.png>] [30]
-Overfull \hbox (9.19893pt too wide) in paragraph at lines 1352--1357
+ [30 <./figs//rolling_correlation_oos.png> <./figs//full_series_with_envelope_f
+it.png>] [31] [32]
+Overfull \hbox (9.19893pt too wide) in paragraph at lines 1442--1447
 \T1/lmr/m/n/12 (-20) We have con-ducted a rig-or-ous, pre-registered repli-ca-t
 ion of the claimed cosmic-ray/earthquake
  []
 
-[31] [32] (./main.bbl [33] [34]) [35] (./main.aux)
+[33] (./main.bbl [34] [35]) [36] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 4C6DAC4BA1A6488C04C1CB417177CB2A;10188.
  ) 
 Here is how much of TeX's memory you used:
- 19468 strings out of 477975
- 366873 string characters out of 5839281
- 1874330 words of memory out of 5000000
- 38839 multiletter control sequences out of 15000+600000
- 628233 words of font info for 254 fonts, out of 8000000 for 9000
+ 19476 strings out of 477975
+ 367014 string characters out of 5839281
+ 1872330 words of memory out of 5000000
+ 38843 multiletter control sequences out of 15000+600000
+ 628196 words of font info for 254 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 75i,12n,76p,1001b,1071s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,76p,1001b,1095s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/d
 vips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/te
 xmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ma
@@ -955,10 +963,10 @@ sr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texmf/fonts/type1/p
 ublic/lm/lmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/s
 ymbols/msbm10.pfb>
-Output written on main.pdf (35 pages, 4580694 bytes).
+Output written on main.pdf (36 pages, 4586307 bytes).
 PDF statistics:
- 826 PDF objects out of 1000 (max. 8388607)
- 698 compressed objects within 7 object streams
- 177 named destinations out of 1000 (max. 500000)
+ 838 PDF objects out of 1000 (max. 8388607)
+ 707 compressed objects within 8 object streams
+ 181 named destinations out of 1000 (max. 500000)
  65000 words of extra memory for PDF output out of 74296 (max. 10000000)
 
