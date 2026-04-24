@@ -395,6 +395,209 @@ $(P, \varphi)$ to avoid local minima.
 \section{Results}
 \label{sec:results}
 
+\subsection{Raw Pairwise Correlations Between CR, Seismic, and Sunspot Data}
+\label{sec:res:rawcorr}
+
+Before applying any detrending, we characterise the raw statistical relationships
+between all three observable time series across the three analysis windows.
+This serves as the pre-detrending baseline that motivates the Hodrick--Prescott
+filter analysis described in Section~\ref{sec:res:detrend}.
+
+\subsubsection{CR index: station distribution}
+
+The global CR index is not collapsed to a single mean.
+Instead, for each 5-day bin $t$ we compute the distribution of normalised
+count-rate values across all $n_t \geq 3$ contributing stations,
+yielding five order statistics:
+$\hat{x}_{t}^{(q)} = q\text{-th percentile}$ for $q \in \{5, 25, 50, 75, 95\}$,
+together with the inter-station minimum and maximum.
+All stations are normalised by their individual long-run mean before the
+cross-station percentile is taken, so the station-median series has a grand
+mean near unity.
+The scatter panels in Figures~\ref{fig:rawinsample}--\ref{fig:rawcombined}
+use $\hat{x}_{t}^{(50)}$ as the central CR value (horizontal axis) and display
+the $[\hat{x}_{t}^{(5)}, \hat{x}_{t}^{(95)}]$ inter-station spread as
+horizontal error bars, with the $[\hat{x}_{t}^{\min}, \hat{x}_{t}^{\max}]$
+range overlaid in a lighter shade.
+
+\subsubsection{Seismic energy metric}
+
+The seismic activity per bin is measured by the total released seismic energy,
+computed as the sum of the individual earthquake energies:
+\begin{equation}
+  E_t = \sum_{i \in \mathcal{B}_t} 10^{1.5\, M_{W,i}},
+  \label{eq:energy}
+\end{equation}
+where $\mathcal{B}_t$ is the set of $M_W \geq 4.5$ events falling in bin $t$.
+Working with $\log_{10} E_t$ removes the extreme skewness of $E_t$ and is
+physically preferable to summing $M_W$ directly, which is dimensionally
+inconsistent because magnitude is already a logarithmic quantity.
+The $\log_{10} E_t$ axis in the scatter panels spans roughly three orders of
+magnitude, reflecting the heavy-tailed Gutenberg--Richter distribution of
+earthquake sizes.
+
+\subsubsection{Sunspot number}
+
+Daily sunspot numbers from SILSO are smoothed with a 365-day rolling mean to
+suppress intra-year variability and isolate the solar-cycle envelope.
+Each 5-day bin carries both the smoothed value (scatter-plot axis) and the
+daily min--max spread within that bin (shown as additional horizontal error
+bars on the sunspot axis in Figure~\ref{fig:rawinsample}--\ref{fig:rawcombined},
+panel 3).
+
+\subsubsection{Correlation results}
+
+We compute both Pearson $r$ (linear; Fisher $z$-transform 95\% CI) and
+Spearman $\rho$ (rank-based; appropriate for the heavy-tailed marginal
+distributions of $E_t$ and CR flux).
+Bonferroni correction for $3\ \text{pairs} \times 3\ \text{windows} = 9$
+tests is applied; star levels refer to the corrected $p$-values.
+Full results are given in Table~\ref{tab:rawcorr}.
+
+\paragraph{CR vs.\ seismicity.}
+The raw Pearson correlation between the station-median CR index and
+$\log_{10} E_t$ is $r = 0.057$ in the in-sample window ($N = 3214$ bins,
+$p_\text{Bonf} = 0.011$, $\rho = 0.071$, $p_\text{Bonf} < 10^{-3}$) and
+$r = 0.046$ in the OOS window ($N = 390$, $p_\text{Bonf} = 1.0$).
+The correlation is thus only marginally significant after correction and
+disappears entirely in the independent OOS window.
+Using the station-95th-percentile CR series in place of the median
+amplifies the correlation slightly ($r = 0.069$ in-sample), suggesting that
+high-flux excursions drive the signal.
+
+\paragraph{CR vs.\ sunspot number.}
+The dominant raw relationship in the dataset is a strong anti-correlation
+between the CR index and the smoothed sunspot number: $r = -0.820$
+($\rho = -0.854$) in-sample, and $r = -0.939$ ($\rho = -0.951$) in the OOS
+window.
+This is the well-established \emph{Forbush decrease} mechanism: a higher
+heliospheric magnetic flux during solar maximum deflects more galactic cosmic
+rays before they reach the Earth's atmosphere
+\citep{Potgieter2013}, so CR flux and solar activity are naturally anti-phase.
+The stronger OOS value ($-0.94$ vs.\ $-0.82$) reflects the wide dynamic range
+of Solar Cycle~25 (2020--2025), which reached high activity levels after the
+deep minimum of 2019--2020.
+
+\paragraph{Sunspot vs.\ seismicity.}
+The raw correlation between the smoothed sunspot number and seismic energy is
+negative but small: $r = -0.095$ ($\rho = -0.099$) in-sample
+($p_\text{Bonf} < 10^{-6}$) and indistinguishable from zero in the OOS window
+($r = -0.023$, $p_\text{Bonf} = 1.0$).
+The negative sign is consistent with reports of a weak inverse relationship
+between solar activity and global seismicity
+\citep{Odintsov2006}, though the OOS failure indicates this effect is not
+robust.
+
+\subsubsection{Interpretation: a confounding triangle}
+
+The three raw correlations form a confounding triangle.
+The CR--sunspot anti-correlation is strong ($r \approx -0.82$ to $-0.94$)
+and physically understood.
+The sunspot--seismicity anti-correlation is weak but significant in-sample
+($r \approx -0.095$).
+Together these imply a spurious \emph{positive} CR--seismicity correlation:
+both CR and seismicity are jointly modulated by the $\sim$11-year solar cycle
+--- CR increases during solar minima, and seismicity may very weakly increase
+during solar minima --- so the two series covary positively without any direct
+physical connection.
+This confound cannot be resolved by naive cross-correlation; it requires
+explicitly removing the shared solar-cycle component.
+The HP filter analysis (Section~\ref{sec:res:detrend}) accomplishes exactly
+this, and shows that the apparent CR--seismicity signal vanishes once the
+solar-cycle trend is eliminated.
+
+These raw correlations are intentionally uncontrolled for solar-cycle
+modulation.
+They are presented here as the pre-detrending baseline to document the scale
+of the confound before any correction is applied, and to highlight that even
+the uncorrected CR--seismicity correlation ($r = 0.057$) is far weaker than
+the CR--sunspot anti-correlation ($r = -0.82$) that drives it.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Raw pairwise correlation statistics across three time windows.
+           Bonferroni correction applied for $3 \times 3 = 9$ tests.
+           CR uses the per-bin station-median index ($\hat{x}^{(50)}$).
+           Seismic energy is $\log_{10}\!\left(\sum 10^{1.5 M_W}\right)$.
+           Sunspot is the 365-day smoothed daily count.
+           $^{*}p_\text{Bonf}<0.05$, $^{**}p_\text{Bonf}<0.01$,
+           $^{***}p_\text{Bonf}<0.001$.}
+  \label{tab:rawcorr}
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{llrrrrrrr}
+    \toprule
+    Pair & Window & $N$ &
+      $r$ & 95\% CI &
+      $p$ (raw) & $p$ (Bonf.) &
+      $\rho$ & $p_\rho$ (Bonf.) \\
+    \midrule
+    CR vs Seismicity & In-sample & 3214 & $+0.057^{*}$ & $[+0.023, +0.092]$ & $0.0012$ & $0.011$ & $+0.071^{***}$ & $<10^{-3}$ \\
+     & OOS & 390 & $+0.046$ & $[-0.053, +0.145]$ & $0.362$ & $1.00$ & $+0.018$ & $1.00$ \\
+     & Combined & 3604 & $+0.055^{**}$ & $[+0.023, +0.088]$ & $0.0009$ & $0.008$ & $+0.065^{***}$ & $<10^{-3}$ \\
+    \addlinespace
+    CR vs Sunspot & In-sample & 3109 & $-0.820^{***}$ & $[-0.831, -0.808]$ & $\approx 0$ & $\approx 0$ & $-0.854^{***}$ & $\approx 0$ \\
+     & OOS & 385 & $-0.939^{***}$ & $[-0.950, -0.926]$ & $\approx 0$ & $\approx 0$ & $-0.951^{***}$ & $\approx 0$ \\
+     & Combined & 3494 & $-0.815^{***}$ & $[-0.826, -0.804]$ & $\approx 0$ & $\approx 0$ & $-0.844^{***}$ & $\approx 0$ \\
+    \addlinespace
+    Sunspot vs Seismicity & In-sample & 3109 & $-0.095^{***}$ & $[-0.130, -0.060]$ & $1.1 \times 10^{-7}$ & $10^{-6}$ & $-0.099^{***}$ & $<10^{-6}$ \\
+     & OOS & 385 & $-0.023$ & $[-0.123, +0.077]$ & $0.648$ & $1.00$ & $-0.016$ & $1.00$ \\
+     & Combined & 3494 & $-0.086^{***}$ & $[-0.119, -0.053]$ & $3.4 \times 10^{-7}$ & $3 \times 10^{-6}$ & $-0.086^{***}$ & $<10^{-6}$ \\
+    \addlinespace
+    \bottomrule
+  \end{tabular}
+
+  \medskip
+  \raggedright
+  \textit{Note:} CR$_{p95}$ variant (station 95th-percentile instead of median)
+  gives qualitatively identical structure; full results in
+  \texttt{results/raw\_pairwise\_correlations.json}.
+\end{table}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{raw_corr_insample.png}
+  \caption{Raw pairwise scatter plots for the in-sample window (1976--2019,
+  $N = 3{,}215$ five-day bins).
+  \textbf{Left}: CR station-median index vs $\log_{10}$ seismic energy; horizontal
+  error bars span the station $[\hat{x}^{(5)}, \hat{x}^{(95)}]$ spread.
+  \textbf{Centre}: CR index vs 365-day smoothed sunspot number; the strong
+  anti-correlation ($r = -0.82$) reflects the Forbush decrease mechanism.
+  \textbf{Right}: Smoothed sunspot number vs $\log_{10}$ seismic energy; thin
+  horizontal error bars show the daily sunspot spread within each 5-day bin.
+  All points are coloured by decimal year (plasma colormap), revealing the
+  solar-cycle drift: successive cycles trace the same anti-correlated arc in
+  the centre panel.
+  Black curves are LOWESS trend lines ($f = 0.4$).}
+  \label{fig:rawinsample}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{raw_corr_oos.png}
+  \caption{Raw pairwise scatter plots for the out-of-sample window
+  (2020--2025, $N = 390$ bins, 27 NMDB stations).
+  Layout identical to Figure~\ref{fig:rawinsample}.
+  The CR--sunspot anti-correlation strengthens to $r = -0.939$ during Solar
+  Cycle~25, which had a particularly wide dynamic range.
+  The CR--seismicity correlation ($r = 0.046$, $p_\text{Bonf} = 1.0$) is
+  indistinguishable from zero.}
+  \label{fig:rawoos}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{raw_corr_combined.png}
+  \caption{Raw pairwise scatter plots for the full combined window
+  (1976--2025, $N = 3{,}604$ bins).
+  The multi-decadal colour gradient in the centre panel shows CR and sunspot
+  oscillating in anti-phase across four complete solar cycles.
+  The overall CR--seismicity Pearson correlation ($r = 0.055$, $\rho = 0.065$)
+  is statistically significant ($p_\text{Bonf} = 0.008$) but quantitatively
+  negligible, and its sign follows directly from the confounding triangle
+  described in the text.}
+  \label{fig:rawcombined}
+\end{figure}
+
 \subsection{In-Sample Replication (1976--2019)}
 \label{sec:res:insample}
 
@@ -661,7 +864,7 @@ at $\tau = -525$~days.
 Even setting aside the statistical issues, the proposed mechanism faces severe
 physical constraints.
 The total ionisation dose from galactic CRs at the surface is
-$\sim$\SI{0.3}{\milli\gray\per\year} \citep{Aplin2005} --- far too small to
+$\sim 0.3$~mGy/year \citep{Aplin2005} --- far too small to
 transfer meaningful mechanical energy to fault zones, which require shear-stress
 changes of order $\sim$0.01--1~MPa to trigger earthquakes.
 Proposed mechanisms via radon ionisation \citep{Pulinets2004} or nuclear
